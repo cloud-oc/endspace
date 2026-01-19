@@ -16,13 +16,13 @@ export const Footer = ({ title }) => {
       {/* Content - centered relative to viewport */}
       <div className="py-6 md:py-8 space-y-3 md:space-y-4 px-4">
         {/* Row 1: RSS and Sitemap Links */}
-        <div className="flex justify-center items-center gap-4 md:gap-6 text-xs font-mono md:-ml-10">
+        <div className="flex justify-center items-center gap-4 md:gap-6 text-sm font-mono md:-ml-10">
           {siteConfig('ENABLE_RSS') && (
             <a 
               href="/rss/feed.xml" 
               target="_blank" 
               rel="noreferrer"
-              className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors py-2"
+              className="flex items-center gap-2 text-gray-400 hover:text-gray-200 hover:underline transition-colors py-2"
             >
               <i className="fas fa-rss" />
               <span>RSS</span>
@@ -32,7 +32,7 @@ export const Footer = ({ title }) => {
             href="/sitemap.xml" 
             target="_blank" 
             rel="noreferrer"
-            className="flex items-center gap-2 text-gray-400 hover:text-blue-400 transition-colors py-2"
+            className="flex items-center gap-2 text-gray-400 hover:text-gray-200 hover:underline transition-colors py-2"
           >
             <i className="fas fa-sitemap" />
             <span>SITEMAP</span>
@@ -41,13 +41,13 @@ export const Footer = ({ title }) => {
 
         {/* Row 2: ICP Registration */}
         {siteConfig('BEI_AN') && (
-          <div className="flex justify-center items-center text-xs font-mono text-gray-500 md:-ml-10">
+          <div className="flex justify-center items-center text-sm font-mono text-gray-500 md:-ml-10">
             {siteConfig('BEI_AN_LINK') ? (
               <a 
                 href={siteConfig('BEI_AN_LINK')} 
                 target="_blank" 
                 rel="noreferrer"
-                className="hover:text-gray-300 transition-colors py-1"
+                className="hover:text-gray-300 hover:underline transition-colors py-1"
               >
                 {siteConfig('BEI_AN')}
               </a>

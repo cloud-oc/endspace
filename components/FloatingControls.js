@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import throttle from 'lodash.throttle'
 import { uuidToId } from 'notion-utils'
-import { IconHistory, IconListTree, IconArrowUp, IconX, IconChevronRight, IconMessage } from '@tabler/icons-react'
+import { IconHistory, IconClock, IconListTree, IconArrowUp, IconX, IconChevronRight, IconMessage } from '@tabler/icons-react'
 import { SideBar } from './SideBar'
 
 /**
@@ -134,7 +134,7 @@ const FloatingControls = ({ toc, ...props }) => {
                         </>
                     ) : (
                         <>
-                             <IconHistory size={16} className="text-black" />
+                             <IconClock size={16} className="text-black" />
                              <span>Recent Logs</span>
                         </>
                     )}
@@ -183,12 +183,12 @@ const FloatingControls = ({ toc, ...props }) => {
         <div className="bg-gray-400/80 backdrop-blur-sm p-1.5 rounded-full shadow-lg flex flex-row lg:flex-col gap-3 pointer-events-auto">
              {/* LOGS */}
              <ControlBtn 
-                icon={IconHistory} 
+                icon={IconClock} 
                 label="Recent Logs" 
                 active={activeTab === 'logs'}
                 onClick={() => toggleDrawer('logs')}
                 iconClassName="text-black"
-                iconSize={28}
+                iconSize={24}
              />
 
              {/* TOC - Only on Article Pages */}
