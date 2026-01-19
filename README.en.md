@@ -48,7 +48,7 @@ For information on how to configure and customize your theme, please refer to th
 
 It is highly personalized and would require significant modifications to contribute officially, so I decided to use it for personal use.
 
-👉 [Live Preview](cloud09.space)
+👉 [Live Preview](https://cloud09.space)
 
 ## 💖 Support & Appreciation
 

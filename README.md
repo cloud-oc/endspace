@@ -48,7 +48,7 @@ NotionNext 是一个基于 Notion API 的静态博客生成器，允许用户直
 
 个性化程度过高，贡献给官方会有不少要修改的，索性就自己用了。
 
-👉 [效果预览](cloud09.space)
+👉 [效果预览](https://cloud09.space)
 
 
 ## 💖 支持与赞赏
