@@ -136,7 +136,7 @@ export const LoadingCover = () => {
   if (!isVisible) return null
 
   return (
-    <div className={`loading-cover ${phase}`} style={{ '--progress': `${progress}%` }}>
+    <div className={`loading-cover ${phase}`} style={{ '--progress': `${progress}%`, '--progress-num': progress }}>
       {/* Left side - Vertical Progress Bar */}
       <div className="progress-container">
         <div className="progress-track">
@@ -380,7 +380,7 @@ export const LoadingCover = () => {
             writing-mode: horizontal-tb; /* Horizontal text */
             text-orientation: mixed;
             transform: none;
-            background: linear-gradient(to right, rgba(147, 197, 253, 0.9) 0%, rgba(96, 165, 250, 0.5) 40%, rgba(59, 130, 246, 0.15) 80%, transparent 100%);
+            background: linear-gradient(to top, rgba(147, 197, 253, 0.9) 0%, rgba(96, 165, 250, 0.5) 40%, rgba(59, 130, 246, 0.15) 80%, transparent 100%);
             -webkit-background-clip: text;
             background-clip: text;
           }
@@ -406,7 +406,7 @@ export const LoadingCover = () => {
             top: auto;
             bottom: 20px; /* Above the bar */
             left: var(--progress); /* Follows horizontally */
-            transform: translateX(-50%); /* Center on the leading edge */
+            transform: translateX(calc(-1% * var(--progress-num))); /* Dynamic offset based on progress */
             align-items: center; /* Center text */
             padding-bottom: 0;
           }
