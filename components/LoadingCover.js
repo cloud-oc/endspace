@@ -23,6 +23,8 @@ export const LoadingCover = () => {
   const textComplete = siteConfig('ENDSPACE_LOADING_TEXT_COMPLETE', 'READY', CONFIG)
   const textSweeping = siteConfig('ENDSPACE_LOADING_TEXT_SWEEPING', 'LAUNCHING', CONFIG)
   const textFadeout = siteConfig('ENDSPACE_LOADING_TEXT_FADEOUT', 'WELCOME', CONFIG)
+  // New: Custom Loading Image
+  const loadingImage = siteConfig('ENDSPACE_LOADING_IMAGE', null, CONFIG)
 
   // Resource loading tracking
   useEffect(() => {
@@ -171,6 +173,13 @@ export const LoadingCover = () => {
       {/* Sweep overlay - full screen cover from left to right */}
       <div className="sweep-overlay" />
 
+      {/* Optional Loading Image */}
+      {loadingImage && (
+        <div className="loading-image-container">
+          <img src={loadingImage} alt="Loading" className="loading-image" />
+        </div>
+      )}
+
       <style jsx>{`
         .loading-cover {
           position: fixed;
@@ -181,6 +190,23 @@ export const LoadingCover = () => {
           background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
           z-index: 99999;
           overflow: hidden;
+        }
+
+        /* Loading Image */
+        .loading-image-container {
+          position: absolute;
+          top: 50%;
+          right: 15%; /* Desktop: Right Center */
+          transform: translateY(-50%);
+          z-index: 10;
+          pointer-events: none;
+        }
+        
+        .loading-image {
+          max-width: 200px;
+          max-height: 200px;
+          opacity: 0.8;
+          filter: drop-shadow(0 0 10px rgba(234, 180, 8, 0.3));
         }
 
         /* Progress Bar Container - Left Side */
@@ -362,6 +388,19 @@ export const LoadingCover = () => {
 
         /* Mobile responsive */
         @media (max-width: 768px) {
+          /* Reposition Loading Image */
+          .loading-image-container {
+             top: 100px; /* Mobile: Top Center (below site name roughly) */
+             right: auto;
+             left: 50%;
+             transform: translateX(-50%);
+          }
+          
+          .loading-image {
+             max-width: 120px; /* Smaller on mobile */
+             max-height: 120px;
+          }
+
           /* Reposition Site Name to Top Center */
           .site-name-container {
             right: 0;
@@ -386,10 +425,10 @@ export const LoadingCover = () => {
 
           /* Reposition Progress Bar to Bottom */
           .progress-container {
-            width: 100%; 
+            width: calc(100% - 5.5rem); /* Leave space for text (approx 88px) */
             height: 4px; /* Thin horizontal line */
             top: auto;
-            bottom: 0;
+            bottom: 30px; /* Moved up slightly */
             left: 0;
           }
           
@@ -403,28 +442,32 @@ export const LoadingCover = () => {
           /* Progress Info follows horizontal bar */
           .progress-info {
             top: auto;
-            bottom: 20px; /* Above the bar */
-            left: var(--progress); /* Follows horizontally */
-            transform: translateX(calc(-1% * var(--progress-num))); /* Dynamic offset based on progress */
-            align-items: center; /* Center text */
+            bottom: 22px; /* Align baseline with bar roughly */
+            left: 0;
+            /* Calculate position: Percentage of the BAR width, not screen width */
+            transform: translateX(calc( (100vw - 5.5rem) * var(--progress-num) / 100 + 10px ));
+            align-items: flex-start; 
             padding-bottom: 0;
+            flex-direction: row; /* Horizontal text layout */
+            gap: 6px;
           }
 
           .progress-percent {
-            font-size: 28px;
+            font-size: 16px; /* Smaller, cleaner font */
+            line-height: 1;
           }
 
           .status-text {
-            font-size: 9px;
-            letter-spacing: 1px;
+            display: none; /* Hide status text on mobile to keep it clean, or keep it? User asked for percentage specifically */
+          }
+          
+          .status-line {
+             display: none;
           }
           
           /* Adjust corner decoration */
           .loading-cover::after {
-             bottom: 20px;
-             right: 20px;
-             width: 40px;
-             height: 40px;
+             display: none; /* Remove corner decoration on mobile to avoid clutter */
           }
         }
       `}</style>

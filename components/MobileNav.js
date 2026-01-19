@@ -28,6 +28,18 @@ import StackFillIcon from 'remixicon-react/StackFillIcon'
 import Compass3FillIcon from 'remixicon-react/Compass3FillIcon'
 import EarthFillIcon from 'remixicon-react/EarthFillIcon'
 import ProfileFillIcon from 'remixicon-react/ProfileFillIcon'
+// Social Icons (Solid)
+import GithubFillIcon from 'remixicon-react/GithubFillIcon'
+import TwitterFillIcon from 'remixicon-react/TwitterFillIcon'
+import WeiboFillIcon from 'remixicon-react/WeiboFillIcon'
+import BilibiliFillIcon from 'remixicon-react/BilibiliFillIcon'
+import TelegramFillIcon from 'remixicon-react/TelegramFillIcon'
+import InstagramFillIcon from 'remixicon-react/InstagramFillIcon'
+import YoutubeFillIcon from 'remixicon-react/YoutubeFillIcon'
+import LinkedinBoxFillIcon from 'remixicon-react/LinkedinBoxFillIcon'
+import WechatFillIcon from 'remixicon-react/WechatFillIcon'
+import GlobeFillIcon from 'remixicon-react/GlobeFillIcon'
+import MailFillIcon from 'remixicon-react/MailFillIcon'
 
 // Icon mapping (Conceptual Remix Icons)
 const IconComponents = {
@@ -42,16 +54,16 @@ const IconComponents = {
 
 // Social icon mapping
 const SocialIconComponents = {
-  'CONTACT_GITHUB': IconBrandGithub,
-  'CONTACT_TWITTER': IconBrandTwitter,
-  'CONTACT_WEIBO': IconBrandWeibo,
-  'CONTACT_BILIBILI': IconBrandBilibili,
-  'CONTACT_TELEGRAM': IconBrandTelegram,
-  'CONTACT_INSTAGRAM': IconBrandInstagram,
-  'CONTACT_YOUTUBE': IconBrandYoutube,
-  'CONTACT_LINKEDIN': IconBrandLinkedin,
-  'CONTACT_WEHCHAT_PUBLIC': IconBrandWechat,
-  'CONTACT_ZHISHIXINGQIU': IconPlanet
+  'CONTACT_GITHUB': GithubFillIcon,
+  'CONTACT_TWITTER': TwitterFillIcon,
+  'CONTACT_WEIBO': WeiboFillIcon,
+  'CONTACT_BILIBILI': BilibiliFillIcon,
+  'CONTACT_TELEGRAM': TelegramFillIcon,
+  'CONTACT_INSTAGRAM': InstagramFillIcon,
+  'CONTACT_YOUTUBE': YoutubeFillIcon,
+  'CONTACT_LINKEDIN': LinkedinBoxFillIcon,
+  'CONTACT_WEHCHAT_PUBLIC': WechatFillIcon,
+  'CONTACT_ZHISHIXINGQIU': GlobeFillIcon
 }
 
 export const MobileNav = (props) => {
@@ -124,7 +136,7 @@ export const MobileNav = (props) => {
   const renderIcon = (name) => {
     const IconComponent = IconComponents[name]
     if (!IconComponent) return null
-    return <IconComponent size={20} stroke={1.5} className="w-6 text-center" />
+    return <IconComponent size={20} className="w-6 text-center" />
   }
 
   // Render social icon
@@ -134,7 +146,7 @@ export const MobileNav = (props) => {
     }
     const IconComponent = SocialIconComponents[key]
     if (IconComponent) {
-      return <IconComponent size={16} stroke={1.5} />
+      return <IconComponent size={16} />
     }
     return null
   }
@@ -142,7 +154,7 @@ export const MobileNav = (props) => {
   return (
     <>
       {/* Top Navigation Bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden bg-[var(--endspace-bg-primary)]/95 backdrop-blur-sm border-b border-[var(--endspace-border-base)] safe-area-top">
+      <nav className="fixed top-0 left-0 right-0 z-50 md:hidden bg-white border-b border-[var(--endspace-border-base)] safe-area-top">
         <div className="flex items-center justify-between h-20 px-5">
           {/* Left: Avatar */}
           <SmartLink href="/cloud09" title="Profile" className="flex-shrink-0 flex items-center">
@@ -180,38 +192,37 @@ export const MobileNav = (props) => {
 
       {/* Slide-in Menu Panel */}
       <div 
-        className={`fixed top-20 right-0 bottom-0 w-72 max-w-[80vw] z-40 md:hidden bg-[var(--endspace-bg-primary)] border-l border-[var(--endspace-border-base)] transition-transform duration-300 ease-out overflow-y-auto ${
+        className={`fixed top-20 left-0 right-0 bottom-0 z-40 md:hidden bg-white transition-transform duration-300 ease-out overflow-y-auto ${
           isMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         {/* Navigation Items */}
-        <div className="py-3 pt-5">
-          <p className="px-5 text-xs font-mono text-[var(--endspace-text-muted)] mb-2 uppercase tracking-wider">Navigation</p>
+        <div className="flex flex-col items-start p-6 space-y-2">
           {menuItems.map(item => (
             <SmartLink
               key={item.name}
               href={item.path}
-              className={`flex items-center gap-4 px-6 py-4 transition-all ${
+              className={`flex items-center gap-4 py-3 w-full transition-all group ${
                 activeTab === item.name
-                  ? 'bg-[#d4d4d8] text-[var(--endspace-text-primary)]'
-                  : 'text-[var(--endspace-text-secondary)] hover:bg-[#d4d4d8] hover:text-[var(--endspace-text-primary)]'
+                  ? 'text-black font-bold'
+                  : 'text-[var(--endspace-text-secondary)] hover:text-black'
               }`}
             >
-              {renderIcon(item.name)}
-              <span className="text-base font-medium">{item.name}</span>
+              <div className={`transition-colors ${activeTab === item.name ? 'text-black' : 'text-gray-400 group-hover:text-black'}`}>
+                 {renderIcon(item.name)}
+              </div>
+              <span className="text-xl font-medium">{item.name}</span>
             </SmartLink>
           ))}
         </div>
 
-        {/* Music Player */}
-        <div className="p-5 border-t border-[var(--endspace-border-base)]">
-          <p className="text-xs font-mono text-[var(--endspace-text-muted)] mb-3 uppercase tracking-wider">Music</p>
+        {/* Music Player (No Label, No Divider) */}
+        <div className="px-6 pb-2">
           <EndspacePlayer isExpanded={true} />
         </div>
 
-        {/* Social Links */}
-        <div className="p-5 border-t border-[var(--endspace-border-base)]">
-          <p className="text-xs font-mono text-[var(--endspace-text-muted)] mb-3 uppercase tracking-wider">Contact</p>
+        {/* Social Links (No Label, No Divider) */}
+        <div className="px-6 pb-8">
           <div className="flex items-center gap-3 flex-wrap">
             {/* Email */}
             {email && (
@@ -220,7 +231,7 @@ export const MobileNav = (props) => {
                 title={email}
                 className="w-9 h-9 flex items-center justify-center rounded-full bg-[var(--endspace-bg-secondary)] text-[var(--endspace-text-muted)] hover:text-[var(--endspace-text-primary)] hover:bg-[#d4d4d8] transition-colors"
               >
-                <IconMail size={16} stroke={1.5} />
+                <MailFillIcon size={16} />
               </a>
             )}
             {socialLinks.map(social => {
@@ -239,13 +250,6 @@ export const MobileNav = (props) => {
                 </a>
               )
             })}
-          </div>
-        </div>
-
-        {/* Theme Toggle or other utilities could go here */}
-        <div className="p-5 border-t border-[var(--endspace-border-base)] mt-auto">
-          <div className="text-xs text-[var(--endspace-text-muted)] font-mono">
-            © {new Date().getFullYear()} {siteConfig('AUTHOR') || 'Cloud'}
           </div>
         </div>
       </div>

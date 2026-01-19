@@ -30,13 +30,10 @@ const CONFIG = {
   ENDSPACE_LOADING_TEXT_COMPLETE: 'READY',
   ENDSPACE_LOADING_TEXT_SWEEPING: 'LAUNCHING',
   ENDSPACE_LOADING_TEXT_FADEOUT: 'WELCOME',
-
-  // ============================================
-  // 光标样式 (Cursor Style)
-  // ============================================
-  ENDSPACE_CUSTOM_CURSOR: true, // 启用自定义光标
-  ENDSPACE_CURSOR_COLOR: '#62F0F5', // 光标主色
-  ENDSPACE_CURSOR_SHADOW_COLOR: 'rgba(98, 240, 245, 0.5)', // 光标阴影色
+  
+  // Custom Loading Image (Optional)
+  // Displayed at right-center on desktop, top-center on mobile
+  ENDSPACE_LOADING_IMAGE: '/svg/cloud.svg', // e.g., '/images/logo.png'
 
   // ============================================
   // 视觉美化 (Visual Aesthetics)
