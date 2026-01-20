@@ -206,7 +206,7 @@ export const LoadingCover = () => {
           max-width: 200px;
           max-height: 200px;
           opacity: 0.8;
-          filter: drop-shadow(0 0 10px rgba(234, 180, 8, 0.3));
+          filter: drop-shadow(0 0 10px rgba(251, 251, 70, 0.3));
         }
 
         /* Progress Bar Container - Left Side */
@@ -216,7 +216,7 @@ export const LoadingCover = () => {
           top: 0;
           width: 6px;
           height: 100%;
-          background: rgba(234, 179, 8, 0.15);
+          background: rgba(251, 251, 70, 0.15);
         }
 
         .progress-track {
@@ -233,9 +233,9 @@ export const LoadingCover = () => {
           left: 0;
           width: 100%;
           height: var(--progress); /* Vertical growth */
-          background: linear-gradient(180deg, #eab308 0%, #fde047 100%);
+          background: linear-gradient(180deg, #FBFB46 0%, #FBFB46 100%);
           transition: height 0.15s ease-out;
-          box-shadow: 0 0 15px #eab308;
+          box-shadow: 0 0 15px #FBFB46;
         }
 
         /* Right side - Vertical Text */
@@ -258,11 +258,11 @@ export const LoadingCover = () => {
           letter-spacing: 0.4em;
           writing-mode: vertical-rl;
           text-orientation: mixed;
-          background: linear-gradient(to left, rgba(253, 224, 71, 0.9) 0%, rgba(234, 179, 8, 0.5) 40%, rgba(202, 138, 4, 0.15) 80%, transparent 100%);
+          background: linear-gradient(to left, rgba(251, 251, 70, 0.9) 0%, rgba(251, 251, 70, 0.5) 40%, rgba(251, 251, 70, 0.15) 80%, transparent 100%);
           -webkit-background-clip: text;
           background-clip: text;
           user-select: none;
-          text-shadow: 0 0 40px rgba(234, 179, 8, 0.3);
+          text-shadow: 0 0 40px rgba(251, 251, 70, 0.3);
         }
 
         /* Progress Info - follows progress bar */
@@ -283,10 +283,10 @@ export const LoadingCover = () => {
           font-family: 'Orbitron', 'Rajdhani', 'Share Tech Mono', 'Consolas', monospace;
           font-size: clamp(36px, 6vw, 56px);
           font-weight: 700;
-          color: #fde047;
+          color: #FBFB46;
           letter-spacing: 2px;
           line-height: 1;
-          text-shadow: 0 0 30px rgba(234, 179, 8, 0.5);
+          text-shadow: 0 0 30px rgba(251, 251, 70, 0.5);
         }
 
         .status-line {
@@ -298,17 +298,17 @@ export const LoadingCover = () => {
         .status-dot {
           width: 6px;
           height: 6px;
-          background: #eab308;
+          background: #FBFB46;
           border-radius: 50%;
           animation: pulse 1s ease-in-out infinite;
-          box-shadow: 0 0 10px #eab308;
+          box-shadow: 0 0 10px #FBFB46;
         }
 
         .status-text {
           font-family: 'Orbitron', 'Rajdhani', 'Share Tech Mono', 'Consolas', monospace;
           font-size: 11px;
           font-weight: 500;
-          color: rgba(253, 224, 71, 0.7);
+          color: rgba(251, 251, 70, 0.7);
           letter-spacing: 2px;
           text-transform: uppercase;
         }
@@ -320,10 +320,11 @@ export const LoadingCover = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, #eab308 0%, #facc15 50%, #fde047 100%);
+          background: linear-gradient(90deg, #FBFB46 0%, #FBFB46 50%, #FBFB46 100%);
           transform: scaleX(0);
           transform-origin: left;
           pointer-events: none;
+          z-index: 50;
         }
 
         .loading-cover.sweeping .sweep-overlay {
@@ -345,33 +346,20 @@ export const LoadingCover = () => {
           position: absolute;
           inset: 0;
           background-image: 
-            linear-gradient(rgba(234, 179, 8, 0.03) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(234, 179, 8, 0.03) 1px, transparent 1px);
+            linear-gradient(rgba(251, 251, 70, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(251, 251, 70, 0.03) 1px, transparent 1px);
           background-size: 60px 60px;
-          pointer-events: none;
-        }
-
-        /* Corner decorations */
-        .loading-cover::after {
-          content: '';
-          position: absolute;
-          bottom: 50px;
-          right: 50px;
-          width: 80px;
-          height: 80px;
-          border-right: 2px solid rgba(234, 179, 8, 0.4);
-          border-bottom: 2px solid rgba(234, 179, 8, 0.4);
           pointer-events: none;
         }
 
         @keyframes pulse {
           0%, 100% { 
             opacity: 1; 
-            box-shadow: 0 0 10px #eab308, 0 0 20px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 0 10px #FBFB46, 0 0 20px rgba(251, 251, 70, 0.4);
           }
           50% { 
             opacity: 0.6; 
-            box-shadow: 0 0 15px #eab308, 0 0 30px rgba(234, 179, 8, 0.2);
+            box-shadow: 0 0 15px #FBFB46, 0 0 30px rgba(251, 251, 70, 0.2);
           }
         }
 
@@ -435,7 +423,7 @@ export const LoadingCover = () => {
           .progress-fill {
             width: var(--progress); /* Horizontal growth */
             height: 100%;
-            background: linear-gradient(90deg, #FBFB46 0%, #fde047 100%);
+            background: linear-gradient(90deg, #FBFB46 0%, #FBFB46 100%);
             transition: width 0.15s ease-out;
           }
 

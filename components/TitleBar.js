@@ -37,7 +37,7 @@ export const TitleBar = ({ post }) => {
 
       {/* Large Background Scrolling Watermark - CLOUD09_SPACE (only on non-article pages) */}
       {!post && (
-        <div className="absolute inset-0 flex items-center opacity-[0.04] pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 flex items-center opacity-[0.15] pointer-events-none overflow-hidden">
           <div className="bg-watermark-scroll whitespace-nowrap leading-none">
             <span className="text-[10rem] md:text-[14rem] font-black text-[var(--endspace-text-primary)] select-none striped-text">
               {marqueeText}

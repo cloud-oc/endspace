@@ -1,88 +1,65 @@
 /**
  * Endspace Theme - Endfield Style Configuration
  * 重要配置项，默认值均为当前效果
+ * 
+ * ============================================
+ * 特殊页面配置说明 (Special Pages)
+ * ============================================
+ * 
+ * 侧边栏的【Portfolio 作品集页面】和【Friends 友链页面】需要在 Notion 中配置子菜单(SubMenu)：
+ * 1. 在 Notion 的菜单数据库中添加一个新条目
+ * 2. 设置 Type 为 SubMenu
+ * 3. 设置 Title 为你想要的菜单名称，如 "Portfolio" 或 "Friends"
+ * 4. 设置 Slug 为对应的路径，如 "/portfolio" 或 "/friends"
+ * 5. 在 Notion 中创建对应的页面内容
+ * 具体可参考NotionNext的帮助手册：https://docs.tangly1024.com/article/notion-next-secondary-menu
+ * 
+ * 示例配置：
+ * | Type      | Title     | Slug      |
+ * |-----------|-----------|---------|
+ * | SubMenu   | Portfolio | /portfolio |
+ * | SubMenu   | Friends   | /friends   |
+ * 
+ * 配置完成后，这些页面会自动出现在侧边栏导航中。
  */
+
 const CONFIG = {
-  // ============================================
-  // 核心配置 (Core Settings)
-  // ============================================
-  
-  // 建站日期，用于计算运行天数
-  ENDSPACE_SITE_CREATE_TIME: '2021-01-01',
-  
-  // 作者个人页路径 (点击头像跳转)
-  ENDSPACE_AUTHOR_LINK: '/cloud09',
-  
-  // 主题强调色 (用于高亮、边框、动画等)
-  ENDSPACE_ACCENT_COLOR: '#62F0F5',
-  
   // ============================================
   // 加载动画 (Loading Animation)
   // ============================================
-  ENDSPACE_LOADING_COVER: true,
+  ENDSPACE_LOADING_COVER: true, // 是否显示加载动画
   
   // 加载动画显示的站点名称 (右侧竖排大字)
-  ENDSPACE_LOADING_SITE_NAME: 'CLOUD09_SPACE',
+  ENDSPACE_LOADING_SITE_NAME: 'CLOUD09_SPACE', // 站点名称，显示在加载动画右侧
   
   // 加载进度文字 (不同阶段)
-  ENDSPACE_LOADING_TEXT_INIT: 'INITIALIZING',
-  ENDSPACE_LOADING_TEXT_LOADING: 'LOADING',
-  ENDSPACE_LOADING_TEXT_COMPLETE: 'READY',
-  ENDSPACE_LOADING_TEXT_SWEEPING: 'LAUNCHING',
-  ENDSPACE_LOADING_TEXT_FADEOUT: 'WELCOME',
+  ENDSPACE_LOADING_TEXT_INIT: 'INITIALIZING', // 初始化阶段显示的文字
+  ENDSPACE_LOADING_TEXT_LOADING: 'LOADING', // 加载阶段显示的文字
+  ENDSPACE_LOADING_TEXT_COMPLETE: 'READY', // 加载完成阶段显示的文字
+  ENDSPACE_LOADING_TEXT_SWEEPING: 'LAUNCHING', // 扫描阶段显示的文字
+  ENDSPACE_LOADING_TEXT_FADEOUT: 'WELCOME', // 淡出阶段显示的文字
   
-  // Custom Loading Image (Optional)
-  // Displayed at right-center on desktop, top-center on mobile
-  ENDSPACE_LOADING_IMAGE: '/svg/cloud.svg', // e.g., '/images/logo.png'
-
-  // ============================================
-  // 视觉美化 (Visual Aesthetics)
-  // ============================================
-  
-  // 背景网格
-  ENDSPACE_GRID_SIZE: 40, // 网格大小(px)
-  ENDSPACE_GRID_COLOR: 'rgba(0,0,0,0.03)', // 网格颜色 (明亮模式)
-  ENDSPACE_GRID_COLOR_DARK: 'rgba(255,255,255,0.02)', // 网格颜色 (暗黑模式)
-  
-  // 扫描线动画
-  ENDSPACE_SCAN_LINE_ENABLED: true,
-  ENDSPACE_SCAN_LINE_SPEED: 4, // 扫描线动画速度(秒)
-  
-  // HUD角标装饰
-  ENDSPACE_HUD_CORNERS_ENABLED: true,
-  ENDSPACE_HUD_CORNER_SIZE: '3rem',
-  
-  // 卡片悬停效果
-  ENDSPACE_CARD_HOVER_LIFT: 2, // 悬停上移距离(px)
-  ENDSPACE_CARD_HOVER_SHADOW: true, // 悬停阴影效果
+  // 加载动画中的图片，可以使用public目录下的图片如'/images/logo.png'，也可以使用url如https://example.com/image.png
+  ENDSPACE_LOADING_IMAGE: '/svg/cloud.svg', // 加载动画中显示的图片
 
   // ============================================
   // 菜单配置 (Menu)
   // ============================================
-  ENDSPACE_MENU_CATEGORY: true,
-  ENDSPACE_MENU_TAG: true,
-  ENDSPACE_MENU_ARCHIVE: true,
-  ENDSPACE_MENU_SEARCH: true,
+  ENDSPACE_MENU_CATEGORY: true, // 显示分类菜单
+  ENDSPACE_MENU_TAG: true, // 显示标签菜单
+  ENDSPACE_MENU_ARCHIVE: true, // 显示归档菜单
+  ENDSPACE_MENU_SEARCH: true, // 显示搜索菜单
 
   // ============================================
   // 文章列表 (Post List)
   // ============================================
-  ENDSPACE_POST_LIST_COVER: true,
-  ENDSPACE_POST_LIST_PREVIEW: true,
-  ENDSPACE_POST_LIST_STYLE: 'card', // 'card' | 'list' | 'compact'
+  ENDSPACE_POST_LIST_COVER: true, // 文章列表是否显示封面图
+  ENDSPACE_POST_LIST_PREVIEW: true, // 文章列表是否显示摘要预览
 
   // ============================================
   // 文章详情页 (Article Page)
   // ============================================
-  ENDSPACE_ARTICLE_LAYOUT_VERTICAL: false,
-  ENDSPACE_ARTICLE_ADJACENT: true,
-  ENDSPACE_ARTICLE_HIDDEN_NOTIFICATION: false,
-
-  // ============================================
-  // 技术风格元素 (Tech Style)
-  // ============================================
-  ENDSPACE_SHOW_TIMESTAMP: true,
-  ENDSPACE_SHOW_GRID_OVERLAY: true,
-  ENDSPACE_SHOW_SPECTRUM_BAR: true
+  ENDSPACE_ARTICLE_LAYOUT_VERTICAL: false, // 文章页是否使用垂直布局
+  ENDSPACE_ARTICLE_ADJACENT: true // 是否显示上一篇/下一篇文章导航
 }
 export default CONFIG
