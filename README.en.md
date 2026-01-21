@@ -12,7 +12,7 @@
 
 > A NotionNext theme inspired by the visual aesthetics of *Arknights: Endfield*.
 
-**Endspace** is a highly stylized NotionNext theme designed to bring a unique futuristic and industrial sci-fi atmosphere to your personal blog. Its UI design pays deep homage to the visual style of the official *Arknights: Endfield* website.
+**Endspace** is a highly stylized NotionNext theme designed to bring a unique futuristic and industrial sci-fi atmosphere to your personal blog. Its UI design pays deep homage to the visual style of the [official *Arknights: Endfield* website](https://endfield.hypergryph.com/).
 
 ## ✨ Features
 
