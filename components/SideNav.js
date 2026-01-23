@@ -192,7 +192,7 @@ export const SideNav = (props) => {
     >
       {/* Avatar Section - Top of sidebar, clickable to personal page */}
       {/* Fixed height container to prevent layout shift when expanded */}
-      <div className="flex-shrink-0 h-[10rem] py-6 flex flex-col items-center">
+      <div className="flex-shrink-0 h-[9rem] py-6 flex flex-col items-center">
         <SmartLink href="/aboutme" title="Profile">
           <div className="w-[3rem] h-[3rem] flex-shrink-0 transition-transform duration-300 cursor-pointer hover:scale-105">
             <img 
@@ -206,7 +206,7 @@ export const SideNav = (props) => {
         <div className={`mt-3 text-center transition-all duration-300 overflow-hidden ${isHovered ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'}`}>
           <SmartLink href="/aboutme" className="hover:text-[var(--endspace-accent-yellow)] transition-colors">
             <div className="text-sm font-bold text-[var(--endspace-text-primary)] uppercase tracking-wider">
-              {siteConfig('AUTHOR') || 'Cloud'}
+              {siteConfig('AUTHOR') || ''}
             </div>
           </SmartLink>
           <div className="text-xs text-[var(--endspace-text-muted)] mt-1 px-3 line-clamp-3 leading-relaxed">
@@ -215,7 +215,8 @@ export const SideNav = (props) => {
         </div>
       </div>
 
-      {/* Navigation Items */}
+      {/* MIDDLE SECTION - Navigation Items */}
+      {/* Reverted to flex-1 as requested to restore original behavior */}
       <div ref={navRef} className="flex-1 py-4 flex flex-col gap-2 overflow-y-auto overflow-x-hidden relative">
         {/* Animated Active Indicator Bar - Higher z-index */}
         <div 
@@ -246,70 +247,75 @@ export const SideNav = (props) => {
         })}
       </div>
 
-      {/* Music Player Section - Above Contact Links */}
-      <EndspacePlayer isExpanded={isHovered} />
-
-      {/* Contact Links Section - Above arrow */}
-      <div className="py-3 transition-all duration-300">
+      {/* BOTTOM SECTION - Tools & Config */}
+      {/* Music Player, Contact, and Toggle */}
+      <div className="flex-shrink-0 flex flex-col justify-end h-auto pb-4">
         
-        {/* Collapsed State: Contact Button with light gray background */}
-        <div className={`flex justify-center transition-all duration-300 ${isHovered ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-          <div className="w-[2.5rem] h-[2.5rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full cursor-pointer hover:text-white hover:bg-gray-600 transition-colors">
-             <RadarFillIcon size={18} />
-           </div>
-         </div>
+        {/* Music Player Section */}
+        <EndspacePlayer isExpanded={isHovered} />
 
-         {/* Expanded State: Horizontal Icon Row - Single line */}
-         <div className={`px-3 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
-            {/* Social Icons - Horizontal Layout, single row with light gray background */}
-            <div className="flex items-center justify-center gap-1.5 flex-nowrap">
-              {/* Email Icon */}
-              {email && (
+        {/* Contact Links Section */}
+        <div className="py-3 transition-all duration-300">
+          
+          {/* Collapsed State: Contact Button with light gray background */}
+          <div className={`flex justify-center transition-all duration-300 ${isHovered ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
+            <div className="w-[2.5rem] h-[2.5rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full cursor-pointer hover:text-white hover:bg-gray-600 transition-colors">
+              <RadarFillIcon size={18} />
+            </div>
+          </div>
+
+          {/* Expanded State: Horizontal Icon Row - Single line */}
+          <div className={`px-3 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0 h-0 overflow-hidden'}`}>
+              {/* Social Icons - Horizontal Layout, single row with light gray background */}
+              <div className="flex items-center justify-center gap-1.5 flex-nowrap">
+                {/* Email Icon */}
+                {email && (
+                    <a 
+                    href={`mailto:${email}`}
+                    title={email}
+                    className="w-[1.75rem] h-[1.75rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full hover:text-white hover:bg-gray-600 transition-colors flex-shrink-0"
+                  >
+                    <MailFillIcon size={14} />
+                </a>
+              )}
+              
+              {/* Social Links */}
+              {socialLinks.map(({ key, svg, label }) => {
+                const url = siteConfig(key)
+                if (!url) return null
+                return (
                   <a 
-                  href={`mailto:${email}`}
-                  title={email}
-                  className="w-[1.75rem] h-[1.75rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full hover:text-white hover:bg-gray-600 transition-colors flex-shrink-0"
-                >
-                  <MailFillIcon size={14} />
-               </a>
-             )}
-             
-             {/* Social Links */}
-             {socialLinks.map(({ key, svg, label }) => {
-               const url = siteConfig(key)
-               if (!url) return null
-               return (
-                 <a 
-                   key={key}
-                   href={url} 
-                   target="_blank" 
-                   rel="noreferrer"
-                   title={label}
-                   className="w-[1.75rem] h-[1.75rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full hover:text-white hover:bg-gray-600 transition-colors flex-shrink-0"
-                 >
-                   {renderSocialIcon(key, svg, label)}
-                 </a>
-               )
-             })}
-           </div>
+                    key={key}
+                    href={url} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    title={label}
+                    className="w-[1.75rem] h-[1.75rem] flex items-center justify-center bg-gray-200 text-gray-500 rounded-full hover:text-white hover:bg-gray-600 transition-colors flex-shrink-0"
+                  >
+                    {renderSocialIcon(key, svg, label)}
+                  </a>
+                )
+              })}
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Bottom Toggle Button - Simple Black Triangle */}
-      <div className="py-4">
-        <div className="flex justify-center">
-          <div 
-            className="w-[2rem] h-[2rem] flex items-center justify-center cursor-pointer"
-            title={isHovered ? 'Collapse' : 'Expand'}
-          >
-            {/* Simple Black Triangle */}
+        {/* Bottom Toggle Button - Simple Black Triangle */}
+        <div className="py-4">
+          <div className="flex justify-center">
             <div 
-              className={`w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent transition-transform duration-300 ${
-                isHovered 
-                  ? 'border-r-[10px] border-r-[var(--endspace-text-primary)] border-l-0' 
-                  : 'border-l-[10px] border-l-[var(--endspace-text-primary)] border-r-0'
-              }`}
-            />
+              className="w-[2rem] h-[2rem] flex items-center justify-center cursor-pointer"
+              title={isHovered ? 'Collapse' : 'Expand'}
+            >
+              {/* Simple Black Triangle */}
+              <div 
+                className={`w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent transition-transform duration-300 ${
+                  isHovered 
+                    ? 'border-r-[10px] border-r-[var(--endspace-text-primary)] border-l-0' 
+                    : 'border-l-[10px] border-l-[var(--endspace-text-primary)] border-r-0'
+                }`}
+              />
+            </div>
           </div>
         </div>
       </div>
