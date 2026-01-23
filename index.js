@@ -357,13 +357,14 @@ const LayoutCategoryIndex = (props) => {
   const { categoryOptions } = props
   return (
     <>
+      <Style />
       <div className="endspace-card p-8">
         <h2 className="text-3xl font-black text-[var(--endspace-text-primary)] mb-8 uppercase tracking-wide">
           ALL_CATEGORIES
         </h2>
         <div
           id="category-list"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+          className="flex flex-wrap gap-3"
         >
           {categoryOptions?.map((category) => (
             <SmartLink
@@ -372,21 +373,10 @@ const LayoutCategoryIndex = (props) => {
               passHref
               legacyBehavior
             >
-              <div className="category-tag-button group">
-                {/* Left indicator - bar transforms to triangle on hover */}
-                <div className="category-tag-indicator" />
-                <div className="flex items-center justify-between flex-1">
-                  <div className="flex items-center gap-2">
-                    <IconFolder size={16} stroke={1.5} className="text-[var(--endspace-text-muted)] group-hover:text-white transition-colors duration-300" />
-                    <span className="text-[var(--endspace-text-primary)] group-hover:text-white transition-colors duration-300 font-bold">
-                      {category.name}
-                    </span>
-                  </div>
-                  <span className="tech-text text-xs text-[var(--endspace-text-muted)] group-hover:text-white/70 font-mono transition-colors duration-300">
-                    [{category.count}]
-                  </span>
-                </div>
-              </div>
+              <a className="ef-btn group">
+                <span className="ef-btn-indicator"></span>
+                <span className="ef-btn-text">{category.name}</span>
+              </a>
             </SmartLink>
           ))}
         </div>
@@ -404,6 +394,7 @@ const LayoutTagIndex = (props) => {
   const { tagOptions } = props
   return (
     <>
+      <Style />
       <div className="endspace-frame p-8">
         <h2 className="text-3xl font-black text-[var(--endspace-text-primary)] mb-8 uppercase tracking-wide">
           ALL_TAGS
@@ -416,21 +407,10 @@ const LayoutTagIndex = (props) => {
               passHref
               legacyBehavior
             >
-              <div className="category-tag-button group">
-                {/* Left indicator - bar transforms to triangle on hover */}
-                <div className="category-tag-indicator" />
-                <div className="flex items-center gap-2 flex-1">
-                  <IconTag size={14} stroke={1.5} className="text-[var(--endspace-text-muted)] group-hover:text-white transition-colors duration-300" />
-                  <span className="text-[var(--endspace-text-primary)] group-hover:text-white transition-colors duration-300 font-medium">
-                    {tag.name}
-                  </span>
-                  {tag.count && (
-                    <span className="tech-text text-xs text-[var(--endspace-text-muted)] group-hover:text-white/70 font-mono transition-colors duration-300">
-                      [{tag.count}]
-                    </span>
-                  )}
-                </div>
-              </div>
+              <a className="ef-btn group">
+                <span className="ef-btn-indicator"></span>
+                <span className="ef-btn-text">#{tag.name}</span>
+              </a>
             </SmartLink>
           ))}
         </div>

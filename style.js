@@ -11,7 +11,7 @@ export const Style = () => {
          ============================================ */
       :root {
         /* Ethereal Whites & Grays */
-        --endspace-bg-base: #ffffff;
+        --endspace-bg-base: #fafafa;
         --endspace-bg-primary: #ffffff;
         --endspace-bg-secondary: #f4f4f5;
         --endspace-bg-tertiary: #e4e4e7;
@@ -750,6 +750,9 @@ export const Style = () => {
       /* ============================================
          NieR: Automata Style Navigation Transition
          ============================================ */
+      /* ============================================
+         NieR: Automata Style Navigation Transition
+         ============================================ */
       .nier-nav-item {
         position: relative;
         overflow: hidden;
@@ -757,6 +760,8 @@ export const Style = () => {
         z-index: 1;
         /* Default Text Color */
         color: var(--endspace-text-muted); 
+        border-radius: 1px; /* Rounded corners as seen in screenshot */
+        margin-bottom: 2px; /* Slight spacing between items */
       }
 
       /* Sliding Background Layer */
@@ -767,18 +772,25 @@ export const Style = () => {
         left: 0;
         width: 0%;
         height: 100%;
-        background: #d4d4d8; /* Zinc-300 - Clearly visible grey */
+        background: #E0E0E0; /* Hover: Darker Grey */
         transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         z-index: -1;
       }
       
-      /* Active / Hover State */
+      /* Active / Hover State Text Color */
       .nier-nav-item:hover, .nier-nav-item.active {
-        color: var(--endspace-text-primary) !important; /* Text becomes bg color (Inverse) */
+        color: var(--endspace-text-primary) !important;
       }
       
-      .nier-nav-item:hover::before, .nier-nav-item.active::before {
-        width: 100%; /* Slide fill from left */
+      /* Hover State: Slide to full width */
+      .nier-nav-item:hover::before {
+        width: 100%;
+      }
+
+      /* Active State: Always full width with Distinct Color */
+      .nier-nav-item.active::before {
+        width: 100%;
+        background: #EBEBEB; /* Active: Lighter Grey */
       }
       
       /* Target the icon specifically if needed to ensure color fill */
@@ -787,17 +799,7 @@ export const Style = () => {
         z-index: 2;
       }
       
-      /* Specific override for the accent color on active items if desired to differ from simple hover */
-      .nier-nav-item.active {
-        /* Optional: Active could be Accent color instead of Black */
-        /* background-color: var(--endspace-accent-yellow) works via ::before? */
-      }
       /* Removed specific active override to keep consistent grey background */
-      .nier-nav-item.active::before {
-         /* Ensure it uses the same grey as hover, or slightly darker if preferred.
-            Let's keep it consistent: */
-         background: #d4d4d8; /* Zinc-300 - Clearly visible grey */
-      }
       
       /* Also update the base hover/active shared rule to use this darker grey */
       
@@ -809,65 +811,67 @@ export const Style = () => {
       }
 
       /* ============================================
-         Category & Tag Button Styles
-         Yellow bar -> Triangle on hover
+         Endfield Category Button Styles
          ============================================ */
-      #theme-endspace .category-tag-button {
-        display: flex !important;
-        align-items: center !important;
-        gap: 0.75rem !important;
-        padding: 0.75rem 1rem 0.75rem 1.25rem !important;
-        background: #27272a !important; /* Dark background - matches screenshot */
-        border-radius: 4px !important;
-        cursor: pointer !important;
-        position: relative !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      /* ============================================
+         Endfield Unified Button Styles
+         ============================================ */
+      /* ============================================
+         Endfield Unified Button Styles (High Priority)
+         ============================================ */
+      .ef-btn {
+        display: inline-flex !important;
+        align-items: center;
+        gap: 0.75rem; /* Space between indicator and text */
+        padding: 0.5rem 1rem 0.5rem 0.75rem;
+        background-color: #3F3F46 !important; /* Normal: Dark Grey matching screenshot */
+        border-radius: 1px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        width: fit-content;
+        min-width: min-content;
+        border: 1px solid transparent; 
+        text-decoration: none !important; /* Remove default link underline */
+        position: relative;
+        z-index: 10;
       }
-
-      #theme-endspace .category-tag-button:hover {
-        background: #52525b !important; /* Lighter background on hover */
-        border-radius: 8px !important; /* Increased border radius */
+      
+      .ef-btn:hover {
+        background-color: #27272A !important; /* Hover: Darker Grey */
+        border-radius: 3px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
       }
-
-      /* Left indicator - bar that becomes triangle */
-      #theme-endspace .category-tag-indicator {
-        position: relative !important;
-        width: 6px !important;
-        height: 1.25rem !important;
-        background: #FBFB45 !important; /* Yellow bar */
-        border-radius: 1px !important;
-        flex-shrink: 0 !important;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        /* Initial bar shape */
-        clip-path: inset(0) !important;
+      
+      /* Indicator Element */
+      .ef-btn-indicator {
+        display: block;
+        width: 4px;
+        height: 18px;
+        background-color: #FBFB45; /* Yellow */
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Rectangle */
       }
-
-      #theme-endspace .category-tag-button:hover .category-tag-indicator {
-        /* Transform to triangle on hover */
-        width: 10px !important;
-        height: 12px !important;
-        clip-path: polygon(0 0, 100% 50%, 0 100%) !important;
-        border-radius: 0 !important;
+      
+      .ef-btn:hover .ef-btn-indicator {
+        width: 12px;
+        height: 12px;
+        background-color: #FBFB45;
+        clip-path: polygon(0 0, 100% 50%, 0 100%); /* Triangle */
       }
-
-      /* Light mode - dark button on light background */
-      #theme-endspace .category-tag-button {
-        background: #27272a !important;
+      
+      /* Text Styles */
+      .ef-btn-text {
+        color: #e4e4e7 !important;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+        transition: color 0.3s ease;
       }
-
-      #theme-endspace .category-tag-button:hover {
-        background: #52525b !important;
-      }
-
-      /* Dark mode - same styling */
-      .dark #theme-endspace .category-tag-button,
-      #theme-endspace.dark .category-tag-button {
-        background: #27272a !important;
-      }
-
-      .dark #theme-endspace .category-tag-button:hover,
-      #theme-endspace.dark .category-tag-button:hover {
-        background: #52525b !important;
+      
+      .ef-btn:hover .ef-btn-text {
+        color: #ffffff !important;
       }
     `}</style>
   )
