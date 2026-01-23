@@ -108,17 +108,21 @@ export const SideNav = (props) => {
   // Email
   const email = siteConfig('CONTACT_EMAIL')
 
-  // Update indicator position
+  // Update indicator position - with validation to prevent stuck indicator
   const updateIndicatorPosition = (tabName) => {
     const itemEl = itemRefs.current[tabName]
     const navEl = navRef.current
     if (itemEl && navEl) {
       const navRect = navEl.getBoundingClientRect()
       const itemRect = itemEl.getBoundingClientRect()
-      setIndicatorStyle({
-        top: itemRect.top - navRect.top,
-        opacity: 1
-      })
+      
+      // Validate that elements have proper dimensions (not zero-height)
+      if (itemRect.height > 0 && navRect.height > 0) {
+        setIndicatorStyle({
+          top: itemRect.top - navRect.top,
+          opacity: 1
+        })
+      }
     }
   }
 
@@ -139,11 +143,20 @@ export const SideNav = (props) => {
 
   // Update indicator position when activeTab changes
   useEffect(() => {
-    // Small delay to ensure refs are set
-    const timer = setTimeout(() => {
+    // Use requestAnimationFrame to ensure DOM is fully rendered
+    const rafId = requestAnimationFrame(() => {
       updateIndicatorPosition(activeTab)
-    }, 50)
-    return () => clearTimeout(timer)
+    })
+    return () => cancelAnimationFrame(rafId)
+  }, [activeTab])
+  
+  // Also update on window resize to prevent stuck indicator
+  useEffect(() => {
+    const handleResize = () => {
+      updateIndicatorPosition(activeTab)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [activeTab])
 
   // Render icon component
@@ -173,14 +186,15 @@ export const SideNav = (props) => {
 
   return (
     <div 
-      className={`fixed left-0 top-0 bottom-0 z-40 hidden md:flex flex-col bg-[var(--endspace-bg-base)] border-r border-[var(--endspace-border-base)] transition-all duration-300 ease-in-out ${isHovered ? 'w-[16rem] shadow-2xl' : 'w-[5rem]'}`}
+      className={`fixed left-0 top-0 bottom-0 z-40 hidden md:flex flex-col bg-[var(--endspace-bg-base)] border-r border-[var(--endspace-border-base)] transition-all duration-300 ease-in-out shadow-md ${isHovered ? 'w-[16rem]' : 'w-[5rem]'}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Avatar Section - Top of sidebar, clickable to personal page */}
-      <div className="flex-shrink-0 py-6 flex flex-col items-center">
+      {/* Fixed height container to prevent layout shift when expanded */}
+      <div className="flex-shrink-0 h-[6rem] py-4 flex flex-col items-center">
         <SmartLink href="/aboutme" title="Profile">
-          <div className={`transition-all duration-300 cursor-pointer hover:scale-105 ${isHovered ? 'w-[5rem] h-[5rem]' : 'w-[3rem] h-[3rem]'}`}>
+          <div className="w-[3rem] h-[3rem] flex-shrink-0 transition-transform duration-300 cursor-pointer hover:scale-105">
             <img 
               src={avatarUrl}
               alt="Avatar"
@@ -188,14 +202,14 @@ export const SideNav = (props) => {
             />
           </div>
         </SmartLink>
-        {/* Author Info - shown when expanded */}
-        <div className={`mt-3 text-center transition-all duration-300 overflow-hidden ${isHovered ? 'opacity-100 max-h-24' : 'opacity-0 max-h-0'}`}>
+        {/* Author Info - shown when expanded, fills the reserved space below avatar */}
+        <div className={`mt-3 text-center transition-all duration-300 overflow-hidden ${isHovered ? 'opacity-100 max-h-20' : 'opacity-0 max-h-0'}`}>
           <SmartLink href="/aboutme" className="hover:text-[var(--endspace-accent-yellow)] transition-colors">
             <div className="text-sm font-bold text-[var(--endspace-text-primary)] uppercase tracking-wider">
               {siteConfig('AUTHOR') || 'Cloud'}
             </div>
           </SmartLink>
-          <div className="text-xs text-[var(--endspace-text-muted)] mt-1 px-4 line-clamp-2">
+          <div className="text-xs text-[var(--endspace-text-muted)] mt-1 px-3 line-clamp-3 leading-relaxed">
             {siteConfig('BIO') || ''}
           </div>
         </div>

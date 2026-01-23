@@ -11,7 +11,7 @@ export const Style = () => {
          ============================================ */
       :root {
         /* Ethereal Whites & Grays */
-        --endspace-bg-base: #fafafa;
+        --endspace-bg-base: #ffffff;
         --endspace-bg-primary: #ffffff;
         --endspace-bg-secondary: #f4f4f5;
         --endspace-bg-tertiary: #e4e4e7;
@@ -806,6 +806,68 @@ export const Style = () => {
       }
       .dark .nier-nav-item:hover, .dark .nier-nav-item.active {
         color: #fafafa !important; /* Dark text in dark mode */
+      }
+
+      /* ============================================
+         Category & Tag Button Styles
+         Yellow bar -> Triangle on hover
+         ============================================ */
+      #theme-endspace .category-tag-button {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.75rem !important;
+        padding: 0.75rem 1rem 0.75rem 1.25rem !important;
+        background: #27272a !important; /* Dark background - matches screenshot */
+        border-radius: 4px !important;
+        cursor: pointer !important;
+        position: relative !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      #theme-endspace .category-tag-button:hover {
+        background: #52525b !important; /* Lighter background on hover */
+        border-radius: 8px !important; /* Increased border radius */
+      }
+
+      /* Left indicator - bar that becomes triangle */
+      #theme-endspace .category-tag-indicator {
+        position: relative !important;
+        width: 6px !important;
+        height: 1.25rem !important;
+        background: #FBFB45 !important; /* Yellow bar */
+        border-radius: 1px !important;
+        flex-shrink: 0 !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        /* Initial bar shape */
+        clip-path: inset(0) !important;
+      }
+
+      #theme-endspace .category-tag-button:hover .category-tag-indicator {
+        /* Transform to triangle on hover */
+        width: 10px !important;
+        height: 12px !important;
+        clip-path: polygon(0 0, 100% 50%, 0 100%) !important;
+        border-radius: 0 !important;
+      }
+
+      /* Light mode - dark button on light background */
+      #theme-endspace .category-tag-button {
+        background: #27272a !important;
+      }
+
+      #theme-endspace .category-tag-button:hover {
+        background: #52525b !important;
+      }
+
+      /* Dark mode - same styling */
+      .dark #theme-endspace .category-tag-button,
+      #theme-endspace.dark .category-tag-button {
+        background: #27272a !important;
+      }
+
+      .dark #theme-endspace .category-tag-button:hover,
+      #theme-endspace.dark .category-tag-button:hover {
+        background: #52525b !important;
       }
     `}</style>
   )
