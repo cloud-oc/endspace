@@ -192,7 +192,7 @@ export const SideNav = (props) => {
     >
       {/* Avatar Section - Top of sidebar, clickable to personal page */}
       {/* Fixed height container to prevent layout shift when expanded */}
-      <div className="flex-shrink-0 h-[9rem] py-6 flex flex-col items-center">
+      <div className="flex-shrink-0 h-[10rem] py-6 flex flex-col items-center">
         <SmartLink href="/aboutme" title="Profile">
           <div className="w-[3rem] h-[3rem] flex-shrink-0 transition-transform duration-300 cursor-pointer hover:scale-105">
             <img 
