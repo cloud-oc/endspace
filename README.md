@@ -28,9 +28,10 @@
 
 1.  **下载主题**：请下载本仓库 `theme` 分支的所有文件。
 2.  **安装**：将下载的文件放置于 NotionNext 项目的 `themes` 文件夹下，并重命名为 `endspace`（即路径应为 `themes/endspace`）。
-3.  **安装依赖**：Endspace 主题依赖 `@tabler/icons-react` 图标库。请确保在您的 NotionNext 项目根目录的 `package.json` 中包含以下依赖：
+3.  **安装依赖**：Endspace 主题依赖 `@tabler/icons-react` 和 `remixicon-react` 图标库。请确保在您的 NotionNext 项目根目录的 `package.json` 中包含以下依赖：
    ```json
-   "@tabler/icons-react": "^3.36.1"
+   "@tabler/icons-react": "^3.36.1",
+   "remixicon-react": "^1.0.0"
    ```
    然后运行 `npm install` 或 `yarn install` 来安装依赖。
 4.  **启用**：修改 NotionNext 的环境变量或配置文件，将 `THEME` 设置为 `endspace` 即可生效。

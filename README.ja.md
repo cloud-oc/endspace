@@ -28,9 +28,10 @@
 
 1.  **テーマのダウンロード**：本リポジトリの `theme` ブランチからすべてのファイルをダウンロードしてください。
 2.  **インストール**：ダウンロードしたファイルをNotionNextプロジェクトの `themes` フォルダに配置し、フォルダ名を `endspace` に変更してください（パスは `themes/endspace` となります）。
-3.  **依存関係のインストール**：Endspaceテーマは `@tabler/icons-react` アイコンライブラリに依存しています。NotionNextプロジェクトのルートの `package.json` に以下の依存関係が含まれていることを確認してください：
+3.  **依存関係のインストール**：Endspaceテーマは `@tabler/icons-react` と `remixicon-react` アイコンライブラリに依存しています。NotionNextプロジェクトのルートの `package.json` に以下の依存関係が含まれていることを確認してください：
    ```json
-   "@tabler/icons-react": "^3.36.1"
+   "@tabler/icons-react": "^3.36.1",
+   "remixicon-react": "^1.0.0"
    ```
    その後、`npm install` または `yarn install` を実行して依存関係をインストールしてください。
 4.  **有効化**：NotionNextの環境変数または設定ファイルを変更し、`THEME` を `endspace` に設定することで有効になります。

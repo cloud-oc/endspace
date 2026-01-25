@@ -28,9 +28,10 @@ The source code for this theme is located in the `theme` branch.
 
 1.  **Download Theme**: Please download all files from the `theme` branch of this repository.
 2.  **Install**: Place the downloaded files into the `themes` folder of your NotionNext project and rename the folder to `endspace` (so the path should be `themes/endspace`).
-3.  **Install Dependencies**: The Endspace theme depends on the `@tabler/icons-react` icon library. Make sure to include the following dependency in your `package.json` at the root of your NotionNext project:
+3.  **Install Dependencies**: The Endspace theme depends on the `@tabler/icons-react` and `remixicon-react` icon libraries. Make sure to include the following dependencies in your `package.json` at the root of your NotionNext project:
    ```json
-   "@tabler/icons-react": "^3.36.1"
+   "@tabler/icons-react": "^3.36.1",
+   "remixicon-react": "^1.0.0"
    ```
    Then run `npm install` or `yarn install` to install the dependencies.
 4.  **Enable**: Modify the NotionNext environment variables or configuration file and set `THEME` to `endspace`.
