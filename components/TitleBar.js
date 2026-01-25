@@ -5,7 +5,7 @@ import CONFIG from '../config'
  * TitleBar Component - Endfield Style (Light Industrial)
  */
 export const TitleBar = ({ post }) => {
-  // 从配置中读取水印文字，可在config.js中自定义
+
   const marqueeText = siteConfig('ENDSPACE_BANNER_WATERMARK_TEXT', 'CLOUD09_SPACE', CONFIG)
 
   return (
@@ -37,11 +37,11 @@ export const TitleBar = ({ post }) => {
         />
       </div>
 
-      {/* Large Background Scrolling Watermark - CLOUD09_SPACE (only on non-article pages) */}
+      {/* Large Background Scrolling Watermark (only on non-article pages) */}
       {!post && (
         <div className="absolute inset-0 flex items-center opacity-[0.15] pointer-events-none overflow-hidden">
           <div className="bg-watermark-scroll whitespace-nowrap leading-none">
-            <span className="text-[10rem] md:text-[14rem] font-black text-[var(--endspace-text-primary)] select-none striped-text">
+            <span className="text-[10rem] md:text-[14rem] font-black text-[var(--endspace-text-primary)] select-none">
               {marqueeText}
               <span className="mx-[5vw] text-[var(--endspace-text-muted)]">&#x2022;</span>
               {marqueeText}
@@ -65,18 +65,7 @@ export const TitleBar = ({ post }) => {
           display: inline-block;
           animation: bgMarquee 30s linear infinite;
         }
-        .striped-text {
-             background: repeating-linear-gradient(
-                135deg,
-                var(--endspace-text-primary) 0,
-                var(--endspace-text-primary) 1px,
-                transparent 1px,
-                transparent 4px
-            );
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+
         @keyframes bgMarquee {
           0% {
             transform: translateX(0);
