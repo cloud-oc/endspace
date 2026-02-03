@@ -28,10 +28,8 @@ export const EndspacePlayer = ({ isExpanded }) => {
 
   // Get configuration from widget.config.js
   const musicPlayerEnabled = siteConfig('MUSIC_PLAYER')
-  const autoPlay = JSON.parse(siteConfig('MUSIC_PLAYER_AUTO_PLAY') || 'false')
   const playOrder = siteConfig('MUSIC_PLAYER_ORDER')
   const audioList = siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []
-  const hasInitializedRef = useRef(false)
 
   // Don't render if disabled or no audio
   if (!musicPlayerEnabled || audioList.length === 0) {
@@ -66,7 +64,7 @@ export const EndspacePlayer = ({ isExpanded }) => {
     }
   }, [])
 
-  // Load track when currentTrack changes - always auto-play when switching
+  // Load track when currentTrack changes
   useEffect(() => {
     if (audioRef.current && currentAudio.url) {
       audioRef.current.src = currentAudio.url
@@ -74,51 +72,14 @@ export const EndspacePlayer = ({ isExpanded }) => {
       setProgress(0)
       setCurrentTime(0)
       
-      // Auto-play when switching tracks (if already initialized)
-      if (hasInitializedRef.current) {
+      // Only auto-play on track switch if currently playing
+      if (isPlaying) {
         audioRef.current.play().catch(e => console.log('Autoplay prevented:', e))
-        setIsPlaying(true)
       }
     }
-  }, [currentTrack, currentAudio.url])
+  }, [currentTrack, currentAudio.url, isPlaying])
 
-  // Auto-play on initial load based on config
-  useEffect(() => {
-    // Only run this once on mount/init for autoplay
-    if (hasInitializedRef.current) return
 
-    if (autoPlay && audioRef.current && currentAudio.url) {
-      hasInitializedRef.current = true
-      
-      // Simple, direct attempt to play
-      const attemptPlay = async () => {
-        try {
-          await audioRef.current?.play()
-          setIsPlaying(true)
-        } catch (error) {
-          console.log('Autoplay prevented by browser:', error)
-          // We DO NOT attach global listeners here to prevent zombie audio.
-          // If browser blocks, user must manually click play.
-        }
-      }
-      
-      // Small delay to ensure DOM is ready
-      const timer = setTimeout(attemptPlay, 800)
-      return () => clearTimeout(timer)
-    } else {
-       hasInitializedRef.current = true
-    }
-  }, [currentAudio.url, autoPlay])
-
-  // Strict cleanup when track changes
-  useEffect(() => {
-    return () => {
-       // FORCE PAUSE on unmount/change to kill zombie audio
-       if (audioRef.current) {
-          audioRef.current.pause()
-       }
-    }
-  }, [currentAudio.url])
 
   // Progress update
   useEffect(() => {
@@ -166,6 +127,7 @@ export const EndspacePlayer = ({ isExpanded }) => {
     if (isPlaying) {
       audioRef.current.pause()
     } else {
+      audioRef.current.muted = false
       audioRef.current.play().catch(e => console.log('Play prevented:', e))
     }
     setIsPlaying(!isPlaying)
@@ -191,6 +153,7 @@ export const EndspacePlayer = ({ isExpanded }) => {
     setShowPlaylist(false)
     if (!isPlaying) {
       setTimeout(() => {
+        if (audioRef.current) audioRef.current.muted = false
         audioRef.current?.play().catch(e => console.log('Play prevented:', e))
         setIsPlaying(true)
       }, 100)

@@ -134,7 +134,10 @@ export const LoadingCover = () => {
   if (!isVisible) return null
 
   return (
-    <div className={`loading-cover ${phase}`} style={{ '--progress': `${displayProgress}%`, '--progress-num': displayProgress }}>
+    <div
+      className={`loading-cover ${phase}`}
+      style={{ '--progress': `${displayProgress}%`, '--progress-num': displayProgress }}
+    >
       {/* Left side - Vertical Progress Bar (thicker) */}
       <div className="progress-container">
         <div className="progress-track">
