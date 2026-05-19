@@ -41,7 +41,7 @@
 
 NotionNext 是一个基于 Notion API 的静态博客生成器，允许用户直接通过 Notion 数据库创建和管理博客内容。
 
-👉 [NotionNext 官方文档](https://docs.tangly1024.com/)
+👉 [NotionNext 官方文档](https://notionnext.tangly1024.com/)
 
 ### 如何配置主题？
 

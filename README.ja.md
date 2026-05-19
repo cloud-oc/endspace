@@ -41,7 +41,7 @@
 
 NotionNextは、Notion APIに基づく静的ブログジェネレーターであり、ユーザーがNotionデータベースを通じて直接ブログコンテンツを作成および管理できるようにします。
 
-👉 [NotionNext 公式ドキュメント](https://docs.tangly1024.com/)
+👉 [NotionNext 公式ドキュメント](https://notionnext.tangly1024.com/)
 
 ### テーマの設定方法は？
 

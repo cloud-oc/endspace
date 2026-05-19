@@ -41,7 +41,7 @@ The source code for this theme is located in the `theme` branch.
 
 NotionNext is a static blog generator based on the Notion API, allowing users to create and manage blog content directly through a Notion database.
 
-👉 [NotionNext Official Documentation](https://docs.tangly1024.com/)
+👉 [NotionNext Official Documentation](https://notionnext.tangly1024.com/)
 
 ### How to configure the theme?
 
