@@ -46,7 +46,7 @@ const CONFIG = {
   ENDSPACE_LOADING_TEXT_FADEOUT: 'WELCOME', // 淡出阶段显示的文字
   
   // 加载动画中的图片，可以使用public目录下的图片如'/images/logo.png'，也可以使用url如https://example.com/image.png
-  ENDSPACE_LOADING_IMAGE: '/svg/cloud.svg', // 加载动画中显示的图片
+  ENDSPACE_LOADING_IMAGE: '/favicon.svg', // 加载动画中显示的图片（默认使用站点 favicon SVG）
 
   // ============================================
   // 水印文字配置 (Watermark Text)
@@ -59,10 +59,10 @@ const CONFIG = {
   // ============================================
   // 菜单配置 (Menu)
   // ============================================
-  ENDSPACE_MENU_CATEGORY: true, // 显示分类菜单
-  ENDSPACE_MENU_TAG: true, // 显示标签菜单
+  ENDSPACE_MENU_CATEGORY: false, // 显示分类菜单（默认合并到 Archive）
+  ENDSPACE_MENU_TAG: false, // 显示标签菜单（默认合并到 Archive）
   ENDSPACE_MENU_ARCHIVE: true, // 显示归档菜单
-  ENDSPACE_MENU_SEARCH: true, // 显示搜索菜单
+  ENDSPACE_MENU_SEARCH: false, // 显示搜索菜单（默认合并到 Archive）
 
   // ============================================
   // 文章列表 (Post List)
@@ -74,6 +74,12 @@ const CONFIG = {
   // 文章详情页 (Article Page)
   // ============================================
   ENDSPACE_ARTICLE_LAYOUT_VERTICAL: false, // 文章页是否使用垂直布局
-  ENDSPACE_ARTICLE_ADJACENT: true // 是否显示上一篇/下一篇文章导航
+  ENDSPACE_ARTICLE_ADJACENT: true, // 是否显示上一篇/下一篇文章导航
+
+  // ============================================
+  // 浮动控件 (Floating controls)
+  // ============================================
+  /** 右下角胶囊是否显示浅色/深色切换（夜间模式已禁用） */
+  ENDSPACE_WIDGET_DARK_MODE: false
 }
 export default CONFIG

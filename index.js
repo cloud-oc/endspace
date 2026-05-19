@@ -1,7 +1,6 @@
 'use client'
 
 import Comment from '@/components/Comment'
-import replaceSearchResult from '@/components/Mark'
 import NotionPage from '@/components/NotionPage'
 import ShareBar from '@/components/ShareBar'
 import SmartLink from '@/components/SmartLink'
@@ -10,7 +9,7 @@ import { useGlobal } from '@/lib/global'
 import { isBrowser } from '@/lib/utils'
 import { Transition } from '@headlessui/react'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import BlogListArchive from './components/BlogListArchive'
 import { BlogPostCard } from './components/BlogPostCard'
 import { BlogListPage } from './components/BlogListPage'
@@ -27,9 +26,10 @@ import MobileNav from './components/MobileNav'
 import ArticleAdjacent from './components/ArticleAdjacent'
 import FloatingControls from './components/FloatingControls'
 import useViewportScale from './components/useViewportScale'
+import replaceEndspaceSearchResult from './components/searchHighlight'
 import CONFIG from './config'
 import { Style } from './style'
-import { IconChevronUp, IconFolder, IconTag, IconLoader2 } from '@tabler/icons-react'
+import { IconLoader2 } from '@tabler/icons-react'
 
 /**
  * Endspace Theme - Endfield Style
@@ -55,6 +55,16 @@ const LayoutBase = (props) => {
   // Viewport scale - Endfield style (using hook default params: 1920x1080 landscape / 390x844 portrait)
   useViewportScale()
 
+  const nestHostRef = useRef(null)
+  useEffect(() => {
+    const el = nestHostRef.current
+    if (!el || !siteConfig('NEST')) return
+    el.setAttribute('zIndex', '-1')
+    el.setAttribute('opacity', '0.5')
+    el.setAttribute('color', '100,100,100')
+    el.setAttribute('count', '99')
+  }, [])
+
   return (
     <div
       id="theme-endspace"
@@ -62,23 +72,20 @@ const LayoutBase = (props) => {
     >
       <Style />
 
-      {/* Nest Animation Support - Container for nest.js canvas */}
+      {/* Nest: mount point for public/js/nest.js (reads zIndex/opacity/color/count attributes) */}
       {siteConfig('NEST') && (
-        <div 
-          id="__nest" 
-          zindex="-1"
-          opacity="0.5"
-          color="100,100,100"
-          count="99"
-          style={{ 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            width: '100vw', 
-            height: '100vh', 
+        <div
+          ref={nestHostRef}
+          id="__nest"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
             pointerEvents: 'none',
-            zIndex: 0 
-          }} 
+            zIndex: 0
+          }}
         />
       )}
 
@@ -218,10 +225,10 @@ const LayoutSlug = (props) => {
                 <NotionPage post={post} />
               </div>
 
-              {/* Footer of the card - Share Bar */}
-              {siteConfig('POST_SHARE_BAR_ENABLE') === 'true' && (
+              {/* Footer of the card - Share Bar（与 siteConfig 布尔/字符串兼容） */}
+              {Boolean(siteConfig('POST_SHARE_BAR_ENABLE')) && (
                 <div className="mt-12 pt-8 border-t border-[var(--endspace-border-base)] flex justify-end items-center">
-                   <ShareBar post={post} />
+                  <ShareBar post={post} />
                 </div>
               )}
             </div>
@@ -310,24 +317,23 @@ const Layout404 = (props) => {
  */
 const LayoutSearch = (props) => {
   const { keyword, posts = [] } = props
-  const router = useRouter()
 
   useEffect(() => {
     if (isBrowser) {
       // Highlight search results
       const container = document.getElementById('posts-wrapper')
-      if (keyword && container) {
-        replaceSearchResult({
+      if (container) {
+        replaceEndspaceSearchResult({
           doms: container,
           search: keyword,
           target: {
             element: 'span',
-            className: 'text-yellow-400 bg-yellow-400/20 px-1'
+            className: 'endspace-search-highlight'
           }
         })
       }
     }
-  }, [router])
+  }, [keyword, posts])
 
   return (
     <>
@@ -352,17 +358,91 @@ const LayoutSearch = (props) => {
  * @returns Articles grouped by date
  */
 const LayoutArchive = (props) => {
-  const { archivePosts } = props
+  const { archivePosts = {}, categoryOptions = [], tagOptions = [], postCount } = props
+  const archiveTitles = Object.keys(archivePosts)
+  const archivePostCount = archiveTitles.reduce(
+    (count, archiveTitle) => count + (archivePosts[archiveTitle]?.length || 0),
+    0
+  )
+  const totalPostCount = postCount || archivePostCount
   return (
     <>
-      <div className="mb-10 pb-20 min-h-screen w-full">
-        {Object.keys(archivePosts).map((archiveTitle) => (
-          <BlogListArchive
-            key={archiveTitle}
-            archiveTitle={archiveTitle}
-            archivePosts={archivePosts}
+      <div className="mb-10 pb-20 min-h-screen w-full space-y-12">
+        <section className="archive-section">
+          <SearchInput
+            {...props}
+            compact
+            titleMeta={`${totalPostCount}_ARTICLES_INDEXED`}
           />
-        ))}
+        </section>
+
+        <section className="archive-section">
+          <div className="flex items-end gap-3 mb-8 pb-2 border-b border-[var(--endspace-border-base)] relative tech-text tracking-wider">
+            <span className="endspace-archive-heading-title text-5xl font-black z-10 relative">CATEGORIES</span>
+            <span className="endspace-section-meta">
+              // {categoryOptions.length}_CATEGORY_NODES
+            </span>
+            <div className="flex-1" />
+          </div>
+          <div id="archive-category-list" className="flex flex-wrap gap-3">
+            {categoryOptions?.map((category) => (
+              <SmartLink
+                key={category.name}
+                href={`/category/${category.name}`}
+                passHref
+                legacyBehavior
+              >
+                <a className="ef-btn archive-filter-btn group">
+                  <span className="ef-btn-indicator"></span>
+                  <span className="ef-btn-text">
+                    {category.name}
+                    {typeof category.count === 'number' ? `(${category.count})` : ''}
+                  </span>
+                </a>
+              </SmartLink>
+            ))}
+          </div>
+        </section>
+
+        <section className="archive-section">
+          <div className="flex items-end gap-3 mb-8 pb-2 border-b border-[var(--endspace-border-base)] relative tech-text tracking-wider">
+            <span className="endspace-archive-heading-title text-5xl font-black z-10 relative">TAGS</span>
+            <span className="endspace-section-meta">
+              // {tagOptions.length}_TAG_MARKERS
+            </span>
+            <div className="flex-1" />
+          </div>
+          <div id="archive-tags-list" className="flex flex-wrap gap-3">
+            {tagOptions.map((tag) => (
+              <SmartLink
+                key={tag.name}
+                href={`/tag/${encodeURIComponent(tag.name)}`}
+                passHref
+                legacyBehavior
+              >
+                <a className="ef-btn archive-filter-btn group">
+                  <span className="ef-btn-indicator"></span>
+                  <span className="ef-btn-text">
+                    #{tag.name}
+                    {typeof tag.count === 'number' ? `(${tag.count})` : ''}
+                  </span>
+                </a>
+              </SmartLink>
+            ))}
+          </div>
+        </section>
+
+        <section className="archive-section">
+          <div>
+            {archiveTitles.map((archiveTitle) => (
+              <BlogListArchive
+                key={archiveTitle}
+                archiveTitle={archiveTitle}
+                archivePosts={archivePosts}
+              />
+            ))}
+          </div>
+        </section>
       </div>
     </>
   )

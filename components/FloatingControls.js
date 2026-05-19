@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import throttle from 'lodash.throttle'
 import { uuidToId } from 'notion-utils'
-import { IconHistory, IconClock, IconListTree, IconArrowUp, IconX, IconChevronRight, IconMessage } from '@tabler/icons-react'
+import { IconClock, IconListTree, IconArrowUp, IconX, IconMessage } from '@tabler/icons-react'
 import { SideBar } from './SideBar'
 
 /**
