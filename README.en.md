@@ -20,7 +20,6 @@
 - **Immersive Loading Experience**: Custom loading sequence including system initialization steps and scanning effects.
 - **Integrated Media Playback**: Built-in music player component.
 - **Responsive Layout**: Deeply optimized for both desktop and mobile reading experiences.
-- **Rich Configuration Options**: Extensive settings to customize colors, animations, and display elements.
 
 ## 🚀 Installation & Usage
 
@@ -49,12 +48,6 @@ NotionNext is a static blog generator based on the Notion API, allowing users to
 For information on how to configure and customize your theme, please refer to the official documentation:
 
 👉 [Custom Theme Guide](https://docs.tangly1024.com/article/your-own-theme)
-
-### Why is Endspace not included in NotionNext official themes?
-
-It is highly personalized and would require significant modifications to contribute officially, so I decided to use it for personal use.
-
-👉 [Live Preview](https://cloud09.space)
 
 ## 💖 Support & Appreciation
 
