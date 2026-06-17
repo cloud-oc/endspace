@@ -3,7 +3,7 @@ import CONFIG from '../config'
 
 const isClassIcon = icon =>
   typeof icon === 'string' &&
-  /(^|\s)(fa[srldb]?|fa-|iconfont|ri-|remixicon)/.test(icon.trim())
+  /(^|\s)(fa[srldb]?|fa-|iconfont|icon-|ri-|remixicon)/.test(icon.trim())
 
 const normalizeIcon = link => {
   const iconField = link?.icon || ''
@@ -61,13 +61,33 @@ const normalizeMenu = links =>
 
 export const getEndspaceMenuItems = ({ customNav, customMenu } = {}) => {
   const defaultLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'Category', path: '/category', show: siteConfig('ENDSPACE_MENU_CATEGORY', null, CONFIG) },
-    { name: 'Tag', path: '/tag', show: siteConfig('ENDSPACE_MENU_TAG', null, CONFIG) },
-    { name: 'Archive', path: '/archive', show: siteConfig('ENDSPACE_MENU_ARCHIVE', null, CONFIG) },
-    { name: 'Portfolio', path: '/portfolio' },
-    { name: 'Friends', path: '/friends' },
-    { name: 'Search', path: '/search', show: siteConfig('ENDSPACE_MENU_SEARCH', null, CONFIG) }
+    { name: 'Home', path: '/', icon: 'endspace:home' },
+    {
+      name: 'Category',
+      path: '/category',
+      icon: 'endspace:category',
+      show: siteConfig('ENDSPACE_MENU_CATEGORY', null, CONFIG)
+    },
+    {
+      name: 'Tag',
+      path: '/tag',
+      icon: 'endspace:tag',
+      show: siteConfig('ENDSPACE_MENU_TAG', null, CONFIG)
+    },
+    {
+      name: 'Archive',
+      path: '/archive',
+      icon: 'endspace:archive',
+      show: siteConfig('ENDSPACE_MENU_ARCHIVE', null, CONFIG)
+    },
+    { name: 'Portfolio', path: '/portfolio', icon: 'endspace:portfolio' },
+    { name: 'Friends', path: '/friends', icon: 'endspace:friends' },
+    {
+      name: 'Search',
+      path: '/search',
+      icon: 'endspace:search',
+      show: siteConfig('ENDSPACE_MENU_SEARCH', null, CONFIG)
+    }
   ]
 
   let links = defaultLinks

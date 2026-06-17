@@ -41,6 +41,7 @@ const SocialIconComponents = {
 export const SideNav = (props) => {
   const router = useRouter()
   const { siteInfo } = useGlobal()
+  const { customNav, customMenu } = props
   const [isHovered, setIsHovered] = useState(false)
   const [activeTab, setActiveTab] = useState('Home')
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, opacity: 0 })
@@ -52,8 +53,8 @@ export const SideNav = (props) => {
   const avatarUrl = props?.siteInfo?.icon || siteInfo?.icon || siteConfig('AVATAR')
 
   const menuItems = useMemo(
-    () => getEndspaceMenuItems(props),
-    [props.customMenu, props.customNav]
+    () => getEndspaceMenuItems({ customNav, customMenu }),
+    [customMenu, customNav]
   )
 
   // Social icon config - using contact.config.js settings

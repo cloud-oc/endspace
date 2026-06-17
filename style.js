@@ -867,6 +867,48 @@ export const Style = () => {
         opacity: 1 !important;
       }
 
+      .endspace-notion-menu-class-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #666;
+        font-size: 1rem;
+        line-height: 1;
+        flex: 0 0 auto;
+        transition: color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .endspace-notion-menu-class-icon.is-active,
+      .nier-nav-item:hover .endspace-notion-menu-class-icon {
+        color: #000;
+        opacity: 1;
+      }
+
+      .endspace-notion-menu-svg-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #666;
+        fill: none;
+        stroke: currentColor;
+        flex: 0 0 auto;
+        transition: color 0.2s ease, opacity 0.2s ease;
+      }
+
+      .endspace-notion-menu-svg-icon.is-active,
+      .nier-nav-item:hover .endspace-notion-menu-svg-icon {
+        color: #000;
+        opacity: 1;
+      }
+
+      .endspace-menu-icon-wrap svg.icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: #666;
+        fill: currentColor;
+      }
+
       .endspace-notion-menu-dot {
         display: inline-flex;
         width: 0.55rem;
