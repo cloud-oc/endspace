@@ -1,3 +1,6 @@
+import CONFIG from './config'
+import { themeConsoleStyle } from '@/lib/themeConsoleStyle'
+
 /**
  * Endspace Theme - Global Styles (JSX)
  * Light Industrial / Endfield-inspired aesthetic
@@ -11,33 +14,47 @@ export const Style = () => {
          ============================================ */
       :root {
         /* Ethereal Whites & Grays */
+        --endspace-bg-base-light: #fafafa;
+        --endspace-bg-base-dark: #09090b;
+        --endspace-bg-primary-light: #ffffff;
+        --endspace-bg-primary-dark: #18181b;
         --endspace-bg-base: #fafafa;
         --endspace-bg-primary: #ffffff;
         --endspace-bg-secondary: #f4f4f5;
         --endspace-bg-tertiary: #e4e4e7;
-        
+
         /* Dark Text (High Contrast) */
+        --endspace-text-primary-light: #18181b;
+        --endspace-text-primary-dark: #f4f4f5;
+        --endspace-text-secondary-light: #52525b;
+        --endspace-text-secondary-dark: #d4d4d8;
         --endspace-text-primary: #18181b;
         --endspace-text-secondary: #52525b;
         --endspace-text-muted: #a1a1aa;
-        
+
         /* Accents (Subtle Industrialism) -> Converted to Yellow Suite */
+        --endspace-accent-yellow-light: #FBFB45;
+        --endspace-accent-yellow-dark: #fef08a;
         --endspace-accent-yellow: #FBFB45;
+        --endspace-accent-yellow-dim-light: rgba(251, 251, 69, 0.15);
+        --endspace-accent-yellow-dim-dark: rgba(254, 240, 138, 0.18);
         --endspace-accent-yellow-dim: rgba(251, 251, 69, 0.15);
         --endspace-accent-cyan: #FBFB45; /* OVERRIDE: Cyan usage -> Yellow 500 */
         --endspace-accent-cyan-dim: rgba(251, 251, 69, 0.1); /* OVERRIDE: Cyan dim -> Yellow dim */
-        
+
         /* Borders & Lines */
+        --endspace-border-base-light: #e4e4e7;
+        --endspace-border-base-dark: #3f3f46;
         --endspace-border-base: #e4e4e7;
         --endspace-border-active: #FBFB45; /* Active border -> Yellow */
         --endspace-grid-color: rgba(0,0,0,0.03);
-        
+
         /* Shadows - Enhanced 3D Depth */
-        --endspace-shadow-base: 
+        --endspace-shadow-base:
           0 1px 2px rgba(0, 0, 0, 0.04),
           0 2px 4px rgba(0, 0, 0, 0.04),
           0 4px 8px rgba(0, 0, 0, 0.04);
-        --endspace-shadow-hover: 
+        --endspace-shadow-hover:
           0 4px 8px rgba(0, 0, 0, 0.08),
           0 8px 16px rgba(0, 0, 0, 0.06),
           0 16px 32px rgba(0, 0, 0, 0.04),
@@ -52,7 +69,7 @@ export const Style = () => {
         /* Desktop: scale based on viewport width relative to 1440px base (larger content) */
         font-size: clamp(14px, calc(16px * (100vw / 1440)), 24px);
       }
-      
+
       /* Portrait/Mobile orientation: different scaling base */
       @media (orientation: portrait), (max-width: 767px) {
         html {
@@ -63,7 +80,31 @@ export const Style = () => {
       /* ============================================
          Global Base Styles
          ============================================ */
+      .dark #theme-endspace {
+        --endspace-bg-base: var(--endspace-bg-base-dark);
+        --endspace-bg-primary: var(--endspace-bg-primary-dark);
+        --endspace-bg-secondary: #27272a;
+        --endspace-bg-tertiary: #3f3f46;
+        --endspace-text-primary: var(--endspace-text-primary-dark);
+        --endspace-text-secondary: var(--endspace-text-secondary-dark);
+        --endspace-text-muted: #a1a1aa;
+        --endspace-border-base: var(--endspace-border-base-dark);
+        --endspace-accent-yellow: var(--endspace-accent-yellow-dark);
+        --endspace-accent-yellow-dim: var(--endspace-accent-yellow-dim-dark);
+        --endspace-grid-color: rgba(255, 255, 255, 0.04);
+      }
+
       #theme-endspace {
+        --endspace-bg-base: var(--endspace-bg-base-light);
+        --endspace-bg-primary: var(--endspace-bg-primary-light);
+        --endspace-text-primary: var(--endspace-text-primary-light);
+        --endspace-text-secondary: var(--endspace-text-secondary-light);
+        --endspace-border-base: var(--endspace-border-base-light);
+        --endspace-accent-yellow: var(--endspace-accent-yellow-light);
+        --endspace-accent-yellow-dim: var(--endspace-accent-yellow-dim-light);
+        --endspace-accent-cyan: var(--endspace-accent-yellow);
+        --endspace-accent-cyan-dim: var(--endspace-accent-yellow-dim);
+        --endspace-border-active: var(--endspace-accent-yellow);
         background-color: var(--endspace-bg-base);
         color: var(--endspace-text-primary);
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -71,10 +112,10 @@ export const Style = () => {
         /* Custom Tech Cursor - Sharp Spearhead with Heavy Shadow */
         cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M2 2 L12 28 L16 18 L26 14 L2 2 Z' fill='%2318181b' stroke='%23ffffff' stroke-width='1.5' style='filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.3));'/%3E%3C/svg%3E") 2 2, auto;
       }
-      
+
       #theme-endspace a, #theme-endspace button, #theme-endspace [role="button"], #theme-endspace .cursor-pointer {
         /* Pointer Cursor - Target Reticle Style */
-        cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M2 2 L12 28 L16 18 L26 14 L2 2 Z' fill='%2362F0F5' stroke='%23000000' stroke-width='1.5' style='filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.3));'/%3E%3Ccircle cx='24' cy='24' r='4' fill='none' stroke='%2362F0F5' stroke-width='2'/%3E%3C/svg%3E") 2 2, pointer;
+        cursor: url("data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M2 2 L12 28 L16 18 L26 14 L2 2 Z' fill='%23A1A1AA' stroke='%23000000' stroke-width='1.5' style='filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.3));'/%3E%3Ccircle cx='24' cy='24' r='4' fill='none' stroke='%23A1A1AA' stroke-width='2'/%3E%3C/svg%3E") 2 2, pointer;
       }
 
       /* Technical Grid Background */
@@ -82,7 +123,7 @@ export const Style = () => {
         content: '';
         position: fixed;
         inset: 0;
-        background-image: 
+        background-image:
           linear-gradient(var(--endspace-grid-color) 1px, transparent 1px),
           linear-gradient(90deg, var(--endspace-grid-color) 1px, transparent 1px);
         background-size: 40px 40px;
@@ -99,7 +140,7 @@ export const Style = () => {
         text-transform: uppercase;
         font-weight: 500;
       }
-      
+
       .tech-num {
         font-family: 'Oswald', sans-serif;
         letter-spacing: 1px;
@@ -184,7 +225,7 @@ export const Style = () => {
         border: 1px solid var(--endspace-border-base);
         position: relative;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 
+        box-shadow:
            0 10px 30px -10px rgba(0,0,0,0.1),
            0 4px 6px -2px rgba(0,0,0,0.05); /* Enhanced shadow for lift */
         z-index: 10;
@@ -238,14 +279,14 @@ export const Style = () => {
 
       .endspace-card:hover {
         border-color: var(--endspace-border-active);
-        box-shadow: 
-          0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+        box-shadow:
+          0 20px 25px -5px rgba(0, 0, 0, 0.1),
           0 10px 10px -5px rgba(0, 0, 0, 0.04),
           0 0 0 1px var(--endspace-accent-yellow); /* Glow border */
         transform: translateY(-4px) scale(1.01);
         z-index: 20;
       }
-      
+
       /* ============================================
          Notion Content Overrides (Light Mode)
          ============================================ */
@@ -323,29 +364,29 @@ export const Style = () => {
         padding-left: 1rem;
         letter-spacing: 0.02em; /* Slightly wider spacing for the 'digital' look */
         transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Snappy tech transition */
-        
+
         /* Default: Distinctly Misaligned / Interlaced Layers */
         /* Layer 1: Cyan Ghost (Top Left) */
         /* Layer 2: Red/Dark Ghost (Bottom Right) */
-        text-shadow: 
-          -4px -2px 0 rgba(6, 182, 212, 0.5), 
+        text-shadow:
+          -4px -2px 0 rgba(6, 182, 212, 0.5),
           4px 2px 0 rgba(255, 50, 50, 0.3);
-          
+
         /* Subtle opacity drop to emphasize the 'hologram' feel when idle */
-        opacity: 0.85; 
+        opacity: 0.85;
       }
-      
+
       /* Hover: Merge / Snap to focus */
       #notion-article h1:hover, #notion-article h2:hover, #notion-article h3:hover {
         /* Shadows merge into the text */
-        text-shadow: 
+        text-shadow:
           0 0 0 rgba(6, 182, 212, 0),
           0 0 0 rgba(255, 50, 50, 0);
         opacity: 1;
         transform: translateX(2px); /* Slight physical shift on 'lock-on' */
       }
-      
-      #notion-article h1::before, 
+
+      #notion-article h1::before,
       #notion-article h2::before,
       #notion-article h3::before {
         content: '';
@@ -356,7 +397,7 @@ export const Style = () => {
         box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
         transition: all 0.3s ease;
       }
-      
+
       /* Bar also reacts to hover */
       #notion-article h1:hover::before,
       #notion-article h2:hover::before,
@@ -424,7 +465,7 @@ export const Style = () => {
         overflow: hidden;
         transition: all 0.2s;
       }
-      
+
       .endspace-btn:hover {
         background: var(--endspace-border-active);
         color: white;
@@ -463,9 +504,9 @@ export const Style = () => {
       /* Spectrum bar decoration */
       .spectrum-bar {
         height: 2px;
-        background: linear-gradient(90deg, 
-          var(--endspace-accent-cyan) 0%, 
-          var(--endspace-accent-yellow) 50%, 
+        background: linear-gradient(90deg,
+          var(--endspace-accent-cyan) 0%,
+          var(--endspace-accent-yellow) 50%,
           var(--endspace-accent-cyan) 100%
         );
       }
@@ -504,7 +545,7 @@ export const Style = () => {
       /* ============================================
          Mobile Responsive Styles
          ============================================ */
-      
+
       /* Safe area support for notched devices */
       .safe-area-bottom {
         padding-bottom: env(safe-area-inset-bottom);
@@ -566,7 +607,7 @@ export const Style = () => {
       /* ============================================
          Scan Line & HUD Animations
          ============================================ */
-      
+
       /* Horizontal Scan Line */
       @keyframes ef-scan-horizontal {
         0% { transform: translateY(-100%); opacity: 0; }
@@ -574,23 +615,23 @@ export const Style = () => {
         90% { opacity: 1; }
         100% { transform: translateY(100vh); opacity: 0; }
       }
-      
+
       .ef-scan-line {
         position: absolute;
         left: 0;
         width: 100%;
         height: 2px;
-        background: linear-gradient(90deg, 
-          transparent, 
-          var(--endspace-accent-cyan) 20%, 
-          var(--endspace-accent-cyan) 80%, 
+        background: linear-gradient(90deg,
+          transparent,
+          var(--endspace-accent-cyan) 20%,
+          var(--endspace-accent-cyan) 80%,
           transparent
         );
         animation: ef-scan-horizontal 4s linear infinite;
         pointer-events: none;
         opacity: 0.5;
       }
-      
+
       /* Vertical Scan Line */
       @keyframes ef-scan-vertical {
         0% { transform: translateX(-100%); opacity: 0; }
@@ -604,10 +645,10 @@ export const Style = () => {
         top: 0;
         width: 1px;
         height: 100%;
-        background: linear-gradient(180deg, 
-          transparent, 
-          var(--endspace-accent-cyan) 30%, 
-          var(--endspace-accent-cyan) 70%, 
+        background: linear-gradient(180deg,
+          transparent,
+          var(--endspace-accent-cyan) 30%,
+          var(--endspace-accent-cyan) 70%,
           transparent
         );
         animation: ef-scan-vertical 6s linear infinite;
@@ -617,14 +658,14 @@ export const Style = () => {
 
       /* Pulse Glow Animation */
       @keyframes ef-pulse-glow {
-        0%, 100% { 
+        0%, 100% {
           box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
         }
-        50% { 
+        50% {
           box-shadow: 0 0 15px rgba(59, 130, 246, 0.6), 0 0 30px rgba(59, 130, 246, 0.3);
         }
       }
-      
+
       .ef-pulse-glow {
         animation: ef-pulse-glow 3s ease-in-out infinite;
       }
@@ -632,7 +673,7 @@ export const Style = () => {
       /* ============================================
          Endfield Button Styles
          ============================================ */
-      
+
       /* Button with Left Highlight Bar */
       .ef-button {
         position: relative;
@@ -647,7 +688,7 @@ export const Style = () => {
         overflow: hidden;
         transition: all 0.2s ease;
       }
-      
+
       .ef-button::before {
         content: '';
         position: absolute;
@@ -659,13 +700,13 @@ export const Style = () => {
         background-color: var(--endspace-accent-yellow);
         transition: all 0.2s ease;
       }
-      
+
       .ef-button:hover {
         background: var(--endspace-border-active);
         color: white;
         border-color: var(--endspace-border-active);
       }
-      
+
       .ef-button:hover::before {
         height: 70%;
         background-color: #FBFB45;
@@ -674,7 +715,7 @@ export const Style = () => {
       /* ============================================
          Card Enhancement Styles
          ============================================ */
-      
+
       /* Enhanced Card with texture */
       .ef-card {
         position: relative;
@@ -682,7 +723,7 @@ export const Style = () => {
         border: 1px solid var(--endspace-border-base);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      
+
       .ef-card:hover {
         border-color: var(--endspace-accent-yellow);
         box-shadow: 0 8px 32px rgba(59, 130, 246, 0.15);
@@ -706,11 +747,11 @@ export const Style = () => {
       /* ============================================
          HUD Corner Decorations
          ============================================ */
-      
+
       .ef-hud-corners {
         position: relative;
       }
-      
+
       /* Top Left HUD */
       .ef-hud-tl::before {
         content: '';
@@ -724,7 +765,7 @@ export const Style = () => {
         pointer-events: none;
         z-index: 50;
       }
-      
+
       /* Bottom Right HUD */
       .ef-hud-br::after {
         content: '';
@@ -742,18 +783,18 @@ export const Style = () => {
       /* ============================================
          Glowing Border Animation
          ============================================ */
-      
+
       @keyframes ef-border-glow {
-        0%, 100% { 
+        0%, 100% {
           border-color: var(--endspace-border-base);
           box-shadow: none;
         }
-        50% { 
+        50% {
           border-color: var(--endspace-accent-cyan);
           box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
         }
       }
-      
+
       .ef-glow-border:hover {
         animation: ef-border-glow 2s ease-in-out infinite;
       }
@@ -765,12 +806,12 @@ export const Style = () => {
         position: relative;
         font-weight: 800;
         letter-spacing: 0.05em;
-        text-shadow: 
+        text-shadow:
           2px 2px 0 rgba(98, 240, 245, 0.35),
           4px 4px 0 rgba(98, 240, 245, 0.18),
           6px 6px 10px rgba(0, 0, 0, 0.15);
       }
-      
+
       /* ============================================
          3D Button Effects
          ============================================ */
@@ -784,21 +825,21 @@ export const Style = () => {
         text-transform: uppercase;
         letter-spacing: 0.1em;
         transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 
+        box-shadow:
           0 4px 0 rgba(98, 240, 245, 0.6),
           0 6px 12px rgba(0, 0, 0, 0.15);
       }
-      
+
       .endspace-btn-3d:hover {
         transform: translateY(-2px);
-        box-shadow: 
+        box-shadow:
           0 6px 0 rgba(98, 240, 245, 0.7),
           0 10px 20px rgba(0, 0, 0, 0.2);
       }
-      
+
       .endspace-btn-3d:active {
         transform: translateY(2px);
-        box-shadow: 
+        box-shadow:
           0 2px 0 rgba(98, 240, 245, 0.5),
           0 3px 6px rgba(0, 0, 0, 0.1);
       }
@@ -807,11 +848,11 @@ export const Style = () => {
          Sidebar & Navigation 3D Depth
          ============================================ */
       .endspace-sidebar-3d {
-        box-shadow: 
+        box-shadow:
           4px 0 8px rgba(0, 0, 0, 0.05),
           8px 0 16px rgba(0, 0, 0, 0.03);
       }
-      
+
       /* ============================================
          NieR: Automata Style Navigation Transition
          ============================================ */
@@ -824,7 +865,7 @@ export const Style = () => {
         transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         z-index: 1;
         /* Default Text Color */
-        color: var(--endspace-text-muted); 
+        color: var(--endspace-text-muted);
         border-radius: 1px; /* Rounded corners as seen in screenshot */
         margin-bottom: 2px; /* Slight spacing between items */
       }
@@ -841,7 +882,7 @@ export const Style = () => {
         transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         z-index: -1;
       }
-      
+
       /* Active / Hover State Text Color */
       .nier-nav-item:hover, .nier-nav-item.active {
         color: var(--endspace-text-primary) !important;
@@ -941,7 +982,7 @@ export const Style = () => {
         filter: none;
         opacity: 1;
       }
-      
+
       /* Hover State: Slide to full width */
       .nier-nav-item:hover::before {
         width: 100%;
@@ -952,7 +993,7 @@ export const Style = () => {
         width: 100%;
         background: #EBEBEB; /* Active: Lighter Grey */
       }
-      
+
       /* Target the icon specifically if needed to ensure color fill */
       .nier-nav-item svg, .nier-nav-item .icon-container {
         transition: color 0.3s ease;
@@ -978,9 +1019,9 @@ export const Style = () => {
       }
 
       /* Removed specific active override to keep consistent grey background */
-      
+
       /* Also update the base hover/active shared rule to use this darker grey */
-      
+
       /* ============================================
          Endfield Category Button Styles
          ============================================ */
@@ -1001,19 +1042,19 @@ export const Style = () => {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         width: fit-content;
         min-width: min-content;
-        border: 1px solid transparent; 
+        border: 1px solid transparent;
         text-decoration: none !important; /* Remove default link underline */
         position: relative;
         z-index: 10;
       }
-      
+
       .ef-btn:hover {
         background-color: #27272A !important; /* Hover: Darker Grey */
         border-radius: 3px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         transform: translateY(-1px);
       }
-      
+
       /* Indicator Element */
       .ef-btn-indicator {
         display: block;
@@ -1023,14 +1064,14 @@ export const Style = () => {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Rectangle */
       }
-      
+
       .ef-btn:hover .ef-btn-indicator {
         width: 12px;
         height: 12px;
         background-color: #FBFB45;
         clip-path: polygon(0 0, 100% 50%, 0 100%); /* Triangle */
       }
-      
+
       /* Text Styles */
       .ef-btn-text {
         color: #e4e4e7 !important;
@@ -1040,7 +1081,7 @@ export const Style = () => {
         white-space: nowrap;
         transition: color 0.3s ease;
       }
-      
+
       .ef-btn:hover .ef-btn-text {
         color: #ffffff !important;
       }
@@ -1058,6 +1099,8 @@ export const Style = () => {
       .archive-filter-btn:hover .ef-btn-text {
         color: #000 !important;
       }
-    `}</style>
+
+      ${themeConsoleStyle('endspace', CONFIG)}
+  `}</style>
   )
 }

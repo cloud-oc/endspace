@@ -7,7 +7,8 @@ import SmartLink from '@/components/SmartLink'
 import { EndspacePlayer } from './EndspacePlayer'
 import NotionMenuIcon from './NotionMenuIcon'
 import {
-  IconBrandX
+  IconBrandX,
+  IconChevronDown
 } from '@tabler/icons-react'
 import RadarFillIcon from 'remixicon-react/RadarFillIcon'
 import { getEndspaceActiveMenuName, getEndspaceMenuItems } from './menu'
@@ -24,9 +25,19 @@ import WechatFillIcon from 'remixicon-react/WechatFillIcon'
 import GlobeFillIcon from 'remixicon-react/GlobeFillIcon'
 import MailFillIcon from 'remixicon-react/MailFillIcon'
 
+const OrcidIcon = ({ size = 16 }) => (
+  <i
+    className='fab fa-orcid'
+    aria-hidden='true'
+    style={{ fontSize: size, lineHeight: 1 }}
+  />
+)
+
+
 // Social icon mapping
 const SocialIconComponents = {
   'CONTACT_GITHUB': GithubFillIcon,
+  'CONTACT_ORCID': OrcidIcon,
   'CONTACT_TWITTER': IconBrandX,
   'CONTACT_WEIBO': WeiboFillIcon,
   'CONTACT_BILIBILI': BilibiliFillIcon,
@@ -38,12 +49,20 @@ const SocialIconComponents = {
   'CONTACT_ZHISHIXINGQIU': GlobeFillIcon
 }
 
+const pathMatches = (asPath, path) => {
+  const cleanPath = asPath.split(/[?#]/)[0] || '/'
+  if (!path || path.startsWith('http') || path.startsWith('#')) return false
+  if (path === '/') return cleanPath === '/'
+  return cleanPath === path || cleanPath.startsWith(`${path}/`)
+}
+
 export const SideNav = (props) => {
   const router = useRouter()
   const { siteInfo } = useGlobal()
   const { customNav, customMenu } = props
   const [isHovered, setIsHovered] = useState(false)
   const [activeTab, setActiveTab] = useState('Home')
+  const [openSubMenuId, setOpenSubMenuId] = useState(null)
   const [indicatorStyle, setIndicatorStyle] = useState({ top: 0, opacity: 0 })
   const navRef = useRef(null)
   const itemRefs = useRef({})
@@ -60,6 +79,7 @@ export const SideNav = (props) => {
   // Social icon config - using contact.config.js settings
   const socialLinks = [
     { key: 'CONTACT_GITHUB', label: 'GitHub' },
+    { key: 'CONTACT_ORCID', label: 'ORCID' },
     { key: 'CONTACT_TWITTER', label: 'Twitter' },
     { key: 'CONTACT_WEIBO', label: 'Weibo' },
     { key: 'CONTACT_BILIBILI', label: 'Bilibili' },
@@ -180,23 +200,65 @@ export const SideNav = (props) => {
         
         {menuItems.map((item) => {
           const isActive = activeTab === item.name
-          return (
-            <SmartLink key={item.id || item.name} href={item.path}>
-              <div 
-                ref={el => itemRefs.current[item.name] = el}
-                className={`nier-nav-item relative h-[3rem] flex items-center cursor-pointer group transition-colors duration-300 hover:bg-[#d4d4d8] ${isActive ? 'active bg-[#d4d4d8]' : ''}`}
-              >
-                {/* Icon Container */}
-                <div className="endspace-menu-icon-wrap w-[5rem] flex-shrink-0 flex items-center justify-center z-10">
-                  {renderIcon(item, isActive)}
-                </div>
+          const hasSubMenu = item.subMenus?.length > 0
+          const isOpen = openSubMenuId === item.id
+          const toggleSubMenu = () => setOpenSubMenuId(isOpen ? null : item.id)
 
-                {/* Text Label (Reveal on Hover) */}
-                <span className={`text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100 delay-75' : 'opacity-0 w-0'}`}>
-                  {item.name.toUpperCase()}
-                </span>
+          const itemContent = (
+            <div
+              ref={el => itemRefs.current[item.name] = el}
+              className={`nier-nav-item relative h-[3rem] flex items-center cursor-pointer group transition-colors duration-300 hover:bg-[#d4d4d8] ${isActive ? 'active bg-[#d4d4d8]' : ''}`}
+              onClick={hasSubMenu ? toggleSubMenu : undefined}
+              role={hasSubMenu ? 'button' : undefined}
+              tabIndex={hasSubMenu ? 0 : undefined}
+              aria-expanded={hasSubMenu ? isOpen : undefined}
+              onKeyDown={hasSubMenu
+                ? e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault()
+                      toggleSubMenu()
+                    }
+                  }
+                : undefined}
+            >
+              {/* Icon Container */}
+              <div className="endspace-menu-icon-wrap w-[5rem] flex-shrink-0 flex items-center justify-center z-10">
+                {renderIcon(item, isActive)}
               </div>
-            </SmartLink>
+
+              {/* Text Label (Reveal on Hover) */}
+              <span className={`text-sm font-medium tracking-wide uppercase whitespace-nowrap transition-opacity duration-300 z-10 ${isHovered ? 'opacity-100 delay-75' : 'opacity-0 w-0'}`}>
+                {item.name.toUpperCase()}
+              </span>
+              {hasSubMenu && (
+                <IconChevronDown
+                  size={16}
+                  stroke={1.5}
+                  className={`ml-auto mr-4 transition-all duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'} ${isOpen ? 'rotate-180' : ''}`}
+                />
+              )}
+            </div>
+          )
+
+          return (
+            <div key={item.id || item.name}>
+              {hasSubMenu ? itemContent : <SmartLink href={item.path}>{itemContent}</SmartLink>}
+              {hasSubMenu && isOpen && isHovered && (
+                <div className="ml-[5rem] mr-3 border-l border-[var(--endspace-border-base)] py-1">
+                  {item.subMenus.map(subItem => (
+                    <SmartLink key={subItem.id || subItem.path} href={subItem.path} target={subItem.target}>
+                      <div className={`py-2 pl-4 pr-2 text-xs uppercase tracking-wide transition-colors hover:bg-[var(--endspace-bg-secondary)] ${
+                        pathMatches(router.asPath, subItem.path)
+                          ? 'font-bold text-[var(--endspace-text-primary)]'
+                          : 'text-[var(--endspace-text-secondary)]'
+                      }`}>
+                        {subItem.name}
+                      </div>
+                    </SmartLink>
+                  ))}
+                </div>
+              )}
+            </div>
           )
         })}
       </div>

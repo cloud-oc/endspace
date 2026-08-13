@@ -380,7 +380,7 @@ const LayoutArchive = (props) => {
           <div className="flex items-end gap-3 mb-8 pb-2 border-b border-[var(--endspace-border-base)] relative tech-text tracking-wider">
             <span className="endspace-archive-heading-title text-5xl font-black z-10 relative">CATEGORIES</span>
             <span className="endspace-section-meta">
-              // {categoryOptions.length}_CATEGORY_NODES
+              {'// '}{categoryOptions.length}_CATEGORY_NODES
             </span>
             <div className="flex-1" />
           </div>
@@ -408,7 +408,7 @@ const LayoutArchive = (props) => {
           <div className="flex items-end gap-3 mb-8 pb-2 border-b border-[var(--endspace-border-base)] relative tech-text tracking-wider">
             <span className="endspace-archive-heading-title text-5xl font-black z-10 relative">TAGS</span>
             <span className="endspace-section-meta">
-              // {tagOptions.length}_TAG_MARKERS
+              {'// '}{tagOptions.length}_TAG_MARKERS
             </span>
             <div className="flex-1" />
           </div>

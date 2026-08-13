@@ -40,7 +40,8 @@ const normalizeMenuItem = (link, index) => {
   if (!link || link.show === false) return null
   const name = link.name || link.title || link.label || ''
   const path = normalizeHref(link)
-  if (!name || !path) return null
+  const subMenus = normalizeMenu(link.subMenus || link.children)
+  if (!name || (!path && subMenus.length === 0)) return null
   const icons = normalizeIcon(link)
 
   return {
@@ -50,7 +51,8 @@ const normalizeMenuItem = (link, index) => {
     path,
     href: path,
     pageIcon: icons.pageIcon,
-    customIcon: icons.customIcon
+    customIcon: icons.customIcon,
+    subMenus
   }
 }
 
@@ -104,8 +106,15 @@ export const getEndspaceMenuItems = ({ customNav, customMenu } = {}) => {
 export const getEndspaceActiveMenuName = (menuItems, asPath = '/') => {
   const cleanPath = asPath.split(/[?#]/)[0] || '/'
   const activeItem = menuItems
-    .filter(item => item.path && !item.path.startsWith('http') && !item.path.startsWith('#'))
     .find(item => {
+      const activeSubMenu = item.subMenus?.some(subItem => {
+        if (!subItem.path || subItem.path.startsWith('http') || subItem.path.startsWith('#')) {
+          return false
+        }
+        return cleanPath === subItem.path || cleanPath.startsWith(`${subItem.path}/`)
+      })
+      if (activeSubMenu) return true
+      if (!item.path || item.path.startsWith('http') || item.path.startsWith('#')) return false
       if (item.path === '/') return cleanPath === '/'
       return cleanPath === item.path || cleanPath.startsWith(`${item.path}/`)
     })

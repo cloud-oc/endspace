@@ -16,7 +16,7 @@ export const BlogListArchive = ({ archiveTitle, archivePosts }) => {
           {archiveTitle}
         </h2>
         <span className="text-xs text-[var(--endspace-text-secondary)] mb-2 tech-text z-10">
-          // {archivePosts[archiveTitle]?.length}_ENTRIES_FOUND
+          {'// '}{archivePosts[archiveTitle]?.length}_ENTRIES_FOUND
         </span>
         <div className="flex-1" />
         <div className="text-xs text-black mb-2 tech-text">

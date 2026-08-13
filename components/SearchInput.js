@@ -54,7 +54,7 @@ export const SearchInput = ({ keyword = '', locale, compact = false, titleMeta =
           <span className="text-5xl font-black">SEARCH</span>
           {titleMeta && (
             <span className="endspace-section-meta">
-              // {titleMeta}
+              {'// '}{titleMeta}
             </span>
           )}
         </div>
