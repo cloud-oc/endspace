@@ -96,7 +96,8 @@ export const SideNav = (props) => {
   // 与 EndspacePlayer 的渲染条件保持一致：未启用或音频列表为空时不预留播放器区域
   const musicEnabled =
     Boolean(siteConfig('MUSIC_PLAYER')) &&
-    (siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []).length > 0
+    ((siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []).length > 0 ||
+      (Boolean(siteConfig('MUSIC_PLAYER_METING')) && siteConfig('MUSIC_PLAYER_METING_ID')))
 
   // Update indicator position - with validation to prevent stuck indicator
   const updateIndicatorPosition = (tabName) => {
