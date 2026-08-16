@@ -93,6 +93,10 @@ export const SideNav = (props) => {
   ]
 
   const CONTACT_EMAIL = siteConfig('CONTACT_EMAIL')
+  // 与 EndspacePlayer 的渲染条件保持一致：未启用或音频列表为空时不预留播放器区域
+  const musicEnabled =
+    Boolean(siteConfig('MUSIC_PLAYER')) &&
+    (siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []).length > 0
 
   // Update indicator position - with validation to prevent stuck indicator
   const updateIndicatorPosition = (tabName) => {
@@ -267,13 +271,25 @@ export const SideNav = (props) => {
       {/* Music Player, Contact, and Toggle */}
       <div className="flex-shrink-0 flex flex-col justify-end h-auto pb-4">
         <div className={`mx-auto transition-[width] duration-300 ease-out ${isHovered ? 'w-[13.5rem]' : 'w-[3rem]'}`}>
-          <div className={`overflow-visible border border-gray-200 bg-gray-100/95 shadow-sm transition-[border-radius] duration-200 ${isHovered ? 'h-[7rem] rounded-2xl px-3 py-2' : 'h-[6.75rem] rounded-full px-1 py-2'}`}>
+          <div className={`overflow-visible border border-gray-200 bg-gray-100/95 shadow-sm transition-[border-radius] duration-200 ${
+            isHovered
+              ? musicEnabled
+                ? 'h-[7rem] rounded-2xl px-3 py-2'
+                : 'h-[3.5rem] rounded-2xl px-3 py-2'
+              : musicEnabled
+                ? 'h-[6.75rem] rounded-full px-1 py-2'
+                : 'h-[3.5rem] rounded-full px-1 py-2'
+          }`}>
             {/* Music Player Section */}
-            <div className={`flex items-center justify-center ${isHovered ? 'h-[3rem]' : 'h-10'}`}>
-              <EndspacePlayer isExpanded={isHovered} embedded />
-            </div>
+            {musicEnabled && (
+              <>
+                <div className={`flex items-center justify-center ${isHovered ? 'h-[3rem]' : 'h-10'}`}>
+                  <EndspacePlayer isExpanded={isHovered} embedded />
+                </div>
 
-            <div className={`mx-auto h-px bg-gray-300/80 transition-[width] duration-300 ease-out ${isHovered ? 'my-1.5 w-full' : 'my-2 w-5'}`} />
+                <div className={`mx-auto h-px bg-gray-300/80 transition-[width] duration-300 ease-out ${isHovered ? 'my-1.5 w-full' : 'my-2 w-5'}`} />
+              </>
+            )}
 
             {/* Contact Links Section */}
             <div className="flex h-10 items-center justify-center overflow-hidden">
