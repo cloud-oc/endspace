@@ -220,15 +220,49 @@ const playSharedTrack = (index, shouldPlay = sharedState.isPlaying) => {
 export const EndspacePlayer = ({ isExpanded, embedded = false }) => {
   const [playerState, setPlayerState] = useState(sharedState)
   const [showPlaylist, setShowPlaylist] = useState(false)
+  const [audioList, setAudioList] = useState([])
 
   // Get configuration from widget.config.js
   const musicPlayerEnabled = siteConfig('MUSIC_PLAYER')
   const autoPlay = parseBoolean(siteConfig('MUSIC_PLAYER_AUTO_PLAY'))
   const playOrder = siteConfig('MUSIC_PLAYER_ORDER')
-  const audioList = siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []
+  const metingEnabled = Boolean(siteConfig('MUSIC_PLAYER_METING'))
+  const metingServer = siteConfig('MUSIC_PLAYER_METING_SERVER') || 'netease'
+  const metingId = siteConfig('MUSIC_PLAYER_METING_ID')
+  const staticAudioList = siteConfig('MUSIC_PLAYER_AUDIO_LIST') || []
 
   const { isPlaying, currentTrack, progress, currentTime } = playerState
   const currentAudio = audioList[currentTrack] || {}
+
+  // 加载歌单：meting 启用时从服务端代理拉取网易云歌单，否则使用静态配置列表
+  useEffect(() => {
+    let cancelled = false
+    const loadAudioList = async () => {
+      if (metingEnabled && metingId) {
+        try {
+          const res = await fetch(
+            `/api/meting?server=${encodeURIComponent(metingServer)}&type=playlist&id=${encodeURIComponent(metingId)}`
+          )
+          if (res.ok) {
+            const data = await res.json()
+            if (!cancelled && Array.isArray(data) && data.length > 0) {
+              setAudioList(data)
+              return
+            }
+          }
+        } catch (e) {
+          console.error('[EndspacePlayer] meting list load failed:', e)
+        }
+      }
+      if (!cancelled) {
+        setAudioList(staticAudioList)
+      }
+    }
+    loadAudioList()
+    return () => {
+      cancelled = true
+    }
+  }, [metingEnabled, metingId, metingServer, staticAudioList])
 
   useEffect(() => {
     if (!musicPlayerEnabled || audioList.length === 0) {
